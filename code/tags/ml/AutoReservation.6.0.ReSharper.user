@@ -1,0 +1,29 @@
+<Configuration>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:ServiceLayerCreator.cs" caret="0" fromTop="0" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:BusinessLayerCreator.cs" caret="0" fromTop="0" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:Creator.cs" caret="0" fromTop="0" />
+      <File id="1F53D0EF-0521-4155-835C-C2A04D9FE5DE/f:AutoReservationBusinessComponent.cs" caret="6810" fromTop="0" />
+    </RecentFiles>
+    <RecentEdits />
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+</Configuration>
