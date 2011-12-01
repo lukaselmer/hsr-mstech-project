@@ -445,12 +445,14 @@ namespace AutoReservation.Dal
         /// <param name="id">Initial value of the Id property.</param>
         /// <param name="marke">Initial value of the Marke property.</param>
         /// <param name="tagestarif">Initial value of the Tagestarif property.</param>
-        public static LuxusklasseAuto CreateLuxusklasseAuto(global::System.Int32 id, global::System.String marke, global::System.Int32 tagestarif)
+        /// <param name="basistarif">Initial value of the Basistarif property.</param>
+        public static LuxusklasseAuto CreateLuxusklasseAuto(global::System.Int32 id, global::System.String marke, global::System.Int32 tagestarif, global::System.Int32 basistarif)
         {
             LuxusklasseAuto luxusklasseAuto = new LuxusklasseAuto();
             luxusklasseAuto.Id = id;
             luxusklasseAuto.Marke = marke;
             luxusklasseAuto.Tagestarif = tagestarif;
+            luxusklasseAuto.Basistarif = basistarif;
             return luxusklasseAuto;
         }
 
@@ -460,9 +462,9 @@ namespace AutoReservation.Dal
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Basistarif
+        public global::System.Int32 Basistarif
         {
             get
             {
@@ -477,8 +479,8 @@ namespace AutoReservation.Dal
                 OnBasistarifChanged();
             }
         }
-        private Nullable<global::System.Int32> _Basistarif;
-        partial void OnBasistarifChanging(Nullable<global::System.Int32> value);
+        private global::System.Int32 _Basistarif;
+        partial void OnBasistarifChanging(global::System.Int32 value);
         partial void OnBasistarifChanged();
 
         #endregion

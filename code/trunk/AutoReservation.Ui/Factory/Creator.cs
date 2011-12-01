@@ -4,17 +4,20 @@ using AutoReservation.Ui.Properties;
 
 namespace AutoReservation.Ui.Factory
 {
-    public class Creator
+
+    public abstract class Creator
     {
+        public abstract IAutoReservationService CreateBusinessLayerInstance();
         public static Creator GetCreatorInstance()
         {
             Type businessLayerType = Type.GetType(Settings.Default.BusinessLayerType);
-            return (Creator)Activator.CreateInstance(businessLayerType);
-        }
 
-        public IAutoReservationService CreateBusinessLayerInstance()
-        {
-            return new AutoReservationService();
+            if (businessLayerType == null)
+            {
+                return new BusinessLayerCreator();
+            }
+
+            return (Creator)Activator.CreateInstance(businessLayerType);
         }
     }
 }
