@@ -5,8 +5,26 @@ using System.Text;
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
-    public class KundeDto //: DtoBase
+    public class KundeDto : DtoBase
     {
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string Nachname { get; set; }
+        [DataMember]
+        public string Vorname { get; set; }
+        [DataMember]
+        public DateTime Geburtsdatum { get; set; }
+
+        public override string Validate()
+        {
+            return null;
+        }
+
+        public override object Clone()
+        {
+            return this;
+        }
 
         //public override string Validate()
         //{
@@ -50,5 +68,5 @@ namespace AutoReservation.Common.DataTransferObjects
         //        Geburtsdatum);
         //}
 
-	}
+    }
 }

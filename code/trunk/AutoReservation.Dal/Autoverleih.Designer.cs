@@ -74,76 +74,76 @@ namespace AutoReservation.Dal
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Auto> Auto
+        public ObjectSet<Auto> Autos
         {
             get
             {
-                if ((_Auto == null))
+                if ((_Autos == null))
                 {
-                    _Auto = base.CreateObjectSet<Auto>("Auto");
+                    _Autos = base.CreateObjectSet<Auto>("Autos");
                 }
-                return _Auto;
+                return _Autos;
             }
         }
-        private ObjectSet<Auto> _Auto;
+        private ObjectSet<Auto> _Autos;
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Kunde> Kunde
+        public ObjectSet<Kunde> Kunden
         {
             get
             {
-                if ((_Kunde == null))
+                if ((_Kunden == null))
                 {
-                    _Kunde = base.CreateObjectSet<Kunde>("Kunde");
+                    _Kunden = base.CreateObjectSet<Kunde>("Kunden");
                 }
-                return _Kunde;
+                return _Kunden;
             }
         }
-        private ObjectSet<Kunde> _Kunde;
+        private ObjectSet<Kunde> _Kunden;
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Reservation> Reservation
+        public ObjectSet<Reservation> Reservationen
         {
             get
             {
-                if ((_Reservation == null))
+                if ((_Reservationen == null))
                 {
-                    _Reservation = base.CreateObjectSet<Reservation>("Reservation");
+                    _Reservationen = base.CreateObjectSet<Reservation>("Reservationen");
                 }
-                return _Reservation;
+                return _Reservationen;
             }
         }
-        private ObjectSet<Reservation> _Reservation;
+        private ObjectSet<Reservation> _Reservationen;
 
         #endregion
         #region AddTo Methods
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Auto EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the Autos EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToAuto(Auto auto)
+        public void AddToAutos(Auto auto)
         {
-            base.AddObject("Auto", auto);
+            base.AddObject("Autos", auto);
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Kunde EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the Kunden EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToKunde(Kunde kunde)
+        public void AddToKunden(Kunde kunde)
         {
-            base.AddObject("Kunde", kunde);
+            base.AddObject("Kunden", kunde);
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Reservation EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the Reservationen EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToReservation(Reservation reservation)
+        public void AddToReservationen(Reservation reservation)
         {
-            base.AddObject("Reservation", reservation);
+            base.AddObject("Reservationen", reservation);
         }
 
         #endregion
@@ -160,28 +160,11 @@ namespace AutoReservation.Dal
     [EdmEntityTypeAttribute(NamespaceName="AutoReservationModel", Name="Auto")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Auto : EntityObject
+    [KnownTypeAttribute(typeof(StandardAuto))]
+    [KnownTypeAttribute(typeof(MittelklasseAuto))]
+    [KnownTypeAttribute(typeof(LuxusklasseAuto))]
+    public abstract partial class Auto : EntityObject
     {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Auto object.
-        /// </summary>
-        /// <param name="id">Initial value of the Id property.</param>
-        /// <param name="marke">Initial value of the Marke property.</param>
-        /// <param name="autoKlasse">Initial value of the AutoKlasse property.</param>
-        /// <param name="tagestarif">Initial value of the Tagestarif property.</param>
-        public static Auto CreateAuto(global::System.Int32 id, global::System.String marke, global::System.Int32 autoKlasse, global::System.Int32 tagestarif)
-        {
-            Auto auto = new Auto();
-            auto.Id = id;
-            auto.Marke = marke;
-            auto.AutoKlasse = autoKlasse;
-            auto.Tagestarif = tagestarif;
-            return auto;
-        }
-
-        #endregion
         #region Primitive Properties
     
         /// <summary>
@@ -240,30 +223,6 @@ namespace AutoReservation.Dal
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 AutoKlasse
-        {
-            get
-            {
-                return _AutoKlasse;
-            }
-            set
-            {
-                OnAutoKlasseChanging(value);
-                ReportPropertyChanging("AutoKlasse");
-                _AutoKlasse = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("AutoKlasse");
-                OnAutoKlasseChanged();
-            }
-        }
-        private global::System.Int32 _AutoKlasse;
-        partial void OnAutoKlasseChanging(global::System.Int32 value);
-        partial void OnAutoKlasseChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.Int32 Tagestarif
         {
             get
@@ -282,30 +241,6 @@ namespace AutoReservation.Dal
         private global::System.Int32 _Tagestarif;
         partial void OnTagestarifChanging(global::System.Int32 value);
         partial void OnTagestarifChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Basistarif
-        {
-            get
-            {
-                return _Basistarif;
-            }
-            set
-            {
-                OnBasistarifChanging(value);
-                ReportPropertyChanging("Basistarif");
-                _Basistarif = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Basistarif");
-                OnBasistarifChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _Basistarif;
-        partial void OnBasistarifChanging(Nullable<global::System.Int32> value);
-        partial void OnBasistarifChanged();
 
         #endregion
     
@@ -492,6 +427,91 @@ namespace AutoReservation.Dal
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AutoReservationModel", Name="LuxusklasseAuto")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class LuxusklasseAuto : Auto
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new LuxusklasseAuto object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="marke">Initial value of the Marke property.</param>
+        /// <param name="tagestarif">Initial value of the Tagestarif property.</param>
+        public static LuxusklasseAuto CreateLuxusklasseAuto(global::System.Int32 id, global::System.String marke, global::System.Int32 tagestarif)
+        {
+            LuxusklasseAuto luxusklasseAuto = new LuxusklasseAuto();
+            luxusklasseAuto.Id = id;
+            luxusklasseAuto.Marke = marke;
+            luxusklasseAuto.Tagestarif = tagestarif;
+            return luxusklasseAuto;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Basistarif
+        {
+            get
+            {
+                return _Basistarif;
+            }
+            set
+            {
+                OnBasistarifChanging(value);
+                ReportPropertyChanging("Basistarif");
+                _Basistarif = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Basistarif");
+                OnBasistarifChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Basistarif;
+        partial void OnBasistarifChanging(Nullable<global::System.Int32> value);
+        partial void OnBasistarifChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AutoReservationModel", Name="MittelklasseAuto")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class MittelklasseAuto : Auto
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new MittelklasseAuto object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="marke">Initial value of the Marke property.</param>
+        /// <param name="tagestarif">Initial value of the Tagestarif property.</param>
+        public static MittelklasseAuto CreateMittelklasseAuto(global::System.Int32 id, global::System.String marke, global::System.Int32 tagestarif)
+        {
+            MittelklasseAuto mittelklasseAuto = new MittelklasseAuto();
+            mittelklasseAuto.Id = id;
+            mittelklasseAuto.Marke = marke;
+            mittelklasseAuto.Tagestarif = tagestarif;
+            return mittelklasseAuto;
+        }
+
+        #endregion
+    
     }
     
     /// <summary>
@@ -730,6 +750,35 @@ namespace AutoReservation.Dal
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="AutoReservationModel", Name="StandardAuto")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class StandardAuto : Auto
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new StandardAuto object.
+        /// </summary>
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="marke">Initial value of the Marke property.</param>
+        /// <param name="tagestarif">Initial value of the Tagestarif property.</param>
+        public static StandardAuto CreateStandardAuto(global::System.Int32 id, global::System.String marke, global::System.Int32 tagestarif)
+        {
+            StandardAuto standardAuto = new StandardAuto();
+            standardAuto.Id = id;
+            standardAuto.Marke = marke;
+            standardAuto.Tagestarif = tagestarif;
+            return standardAuto;
+        }
+
+        #endregion
+    
     }
 
     #endregion

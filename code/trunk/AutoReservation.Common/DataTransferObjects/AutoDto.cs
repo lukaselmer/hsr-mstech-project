@@ -1,11 +1,39 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
-    public class AutoDto //: DtoBase
+    //[KnownType(typeof(LuxusAuto)), KnownType(typeof(BoredStudent))]
+    public class AutoDto : DtoBase
     {
+        //public AutoKlasse AutoKlasse{get
+        //{
+        //    return AutoKlasse.Luxusklasse;
+        //}}
+
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string Marke { get; set; }
+        [DataMember]
+        public int Tagestarif { get; set; }
+        [DataMember]
+        public int? Basistarif { get; set; }
+        [DataMember]
+        public AutoKlasse AutoKlasse { get; set; }
+
+        public override string Validate()
+        {
+            return null;
+        }
+
+        public override object Clone()
+        {
+            return this;
+        }
 
         //public override string Validate()
         //{
@@ -39,7 +67,7 @@ namespace AutoReservation.Common.DataTransferObjects
         //        Basistarif = Basistarif
         //    };
         //}
-        
+
         //public override string ToString()
         //{
         //    return string.Format(
@@ -51,7 +79,7 @@ namespace AutoReservation.Common.DataTransferObjects
         //        AutoKlasse);
         //}
 
-	}
+    }
 
     [DataContract]
     public enum AutoKlasse

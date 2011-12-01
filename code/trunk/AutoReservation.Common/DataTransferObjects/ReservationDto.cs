@@ -5,9 +5,33 @@ using System.Text;
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
-    public class ReservationDto //: DtoBase
+    public class ReservationDto : DtoBase
     {
+        [DataMember]
+        public int ReservationNr { get; set; }
+        [DataMember]
+        public int AutoId { get; set; }
+        [DataMember]
+        public int KundeId { get; set; }
+        [DataMember]
+        public DateTime Von { get; set; }
+        [DataMember]
+        public DateTime Bis { get; set; }
+        //[DataMember(IsReference = true)]
+        [DataMember]
+        public AutoDto Auto { get; set; }
+        [DataMember]
+        public KundeDto Kunde { get; set; }
 
+        public override string Validate()
+        {
+            return null;
+        }
+
+        public override object Clone()
+        {
+            return this;
+        }
         //public override string Validate()
         //{
         //    StringBuilder error = new StringBuilder();

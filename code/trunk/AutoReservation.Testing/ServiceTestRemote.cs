@@ -1,4 +1,5 @@
 ﻿using System.ServiceModel;
+using AutoReservation.Service.Wcf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AutoReservation.Testing
