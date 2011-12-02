@@ -1,0 +1,127 @@
+<Configuration>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/f:App.config" caret="0" fromTop="0" />
+      <File id="85305EF6-3B4F-4B7C-B39D-780FA9950156/f:ServiceTestBase.cs" caret="194" fromTop="7" />
+      <File id="85305EF6-3B4F-4B7C-B39D-780FA9950156/f:ServiceTestRemote.cs" caret="284" fromTop="10" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:ViewModels/f:KundeViewModel.cs" caret="1832" fromTop="14" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:ViewModels/f:ViewModelBase.cs" caret="847" fromTop="14" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Properties/f:Settings.Designer.cs" caret="1401" fromTop="13" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:Interfaces/f:IAutoReservationService.cs" caret="382" fromTop="0" />
+      <File id="AB98AC63-032F-4050-9755-1E2235E9F1DD/f:Autoverleih.Designer.cs" caret="16710" fromTop="13" />
+      <File id="73F6E950-15A9-460D-993B-DFE469A9E286/f:AutoReservationService.cs" caret="721" fromTop="16" />
+      <File id="73F6E950-15A9-460D-993B-DFE469A9E286/f:DtoConverter.cs" caret="0" fromTop="0" />
+      <File id="4E17D89D-F65A-4F89-BCEE-28171FA1A01C/f:Program.cs" caret="0" fromTop="0" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Converters/f:DetailViewVisibilityConverter.cs" caret="0" fromTop="0" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Converters/f:BasistarifVisibilityConverter.cs" caret="0" fromTop="0" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Converters/f:AutoKlasseEnumConverter.cs" caret="0" fromTop="0" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:ServiceLayerCreator.cs" caret="0" fromTop="0" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:Creator.cs" caret="509" fromTop="10" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:BusinessLayerCreator.cs" caret="0" fromTop="0" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:ViewModels/f:AutoViewModel.cs" caret="0" fromTop="0" />
+      <File id="1F53D0EF-0521-4155-835C-C2A04D9FE5DE/f:LocalOptimisticConcurrencyException.cs" caret="0" fromTop="0" />
+      <File id="1F53D0EF-0521-4155-835C-C2A04D9FE5DE/f:AutoReservationBusinessComponent.cs" caret="0" fromTop="0" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:DtoBase.cs" caret="314" fromTop="0" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="298" fromTop="10" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:KundeDto.cs" caret="276" fromTop="12" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:ReservationDto.cs" caret="363" fromTop="13" />
+      <File id="4E17D89D-F65A-4F89-BCEE-28171FA1A01C/f:AutoReservationServiceHost.cs" caret="283" fromTop="10" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:ReservationDto.cs" caret="3076" fromTop="26" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:ReservationDto.cs" caret="199" fromTop="8" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:KundeDto.cs" caret="380" fromTop="11" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:KundeDto.cs" caret="529" fromTop="16" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:KundeDto.cs" caret="682" fromTop="21" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:ReservationDto.cs" caret="235" fromTop="9" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:ReservationDto.cs" caret="392" fromTop="8" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="616" fromTop="20" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="616" fromTop="20" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="447" fromTop="14" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="2223" fromTop="25" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="1807" fromTop="20" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="1405" fromTop="15" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="1003" fromTop="10" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="2144" fromTop="14" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="1728" fromTop="11" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="1326" fromTop="14" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="929" fromTop="11" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:KundeDto.cs" caret="251" fromTop="8" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:Interfaces/f:IAutoReservationService.cs" caret="382" fromTop="0" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="1440" fromTop="10" />
+      <File id="73F6E950-15A9-460D-993B-DFE469A9E286/f:AutoReservationService.cs" caret="721" fromTop="16" />
+      <File id="1F53D0EF-0521-4155-835C-C2A04D9FE5DE/f:AutoReservationBusinessComponent.cs" caret="6820" fromTop="204" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:Creator.cs" caret="503" fromTop="21" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:Creator.cs" caret="629" fromTop="23" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:Creator.cs" caret="130" fromTop="5" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:Creator.cs" caret="627" fromTop="22" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:Creator.cs" caret="627" fromTop="23" />
+      <File id="89694D5D-6F27-4AAF-97DA-F678599A34E9/d:Factory/f:Creator.cs" caret="630" fromTop="17" />
+      <File id="22972439-3FFF-41D2-B5AE-6C06ABC66EB4/d:DataTransferObjects/f:AutoDto.cs" caret="298" fromTop="10" />
+    </RecentEdits>
+  </RecentFiles>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="CSharpCodeCompletionContext">
+      <Item value="StandardAuto`0" priority="31" />
+      <Item value="new" priority="63" />
+      <Item value="StandardAuto" priority="28" />
+      <Item value="dto" priority="63" />
+      <Item value="return" priority="95" />
+      <Item value="null" priority="31" />
+      <Item value="this" priority="222" />
+      <Item value="AutoKlasse`0" priority="62" />
+      <Item value="GetHashCode`0" priority="63" />
+      <Item value="is" priority="31" />
+      <Item value="value" priority="62" />
+      <Item value="DataTransferObjects" priority="57" />
+      <Item value="dict" priority="31" />
+      <Item value="AutoKlasse" priority="31" />
+      <Item value="public" priority="63" />
+      <Item value="int" priority="31" />
+      <Item value="DataContractSerializer`0" priority="31" />
+      <Item value="string" priority="63" />
+      <Item value="DateTime`0" priority="31" />
+      <Item value="AutoReservation" priority="31" />
+      <Item value="Common" priority="26" />
+      <Item value="Exceptions" priority="26" />
+      <Item value="OptimisticConcurrencyException" priority="26" />
+      <Item value="AutoDto`0" priority="26" />
+      <Item value="Creator" priority="30" />
+      <Item value="IAutoReservationService`0" priority="30" />
+      <Item value="Creator`0" priority="31" />
+      <Item value="AutoReservationService" priority="26" />
+      <Item value="Marke" priority="31" />
+      <Item value="Basistarif" priority="31" />
+      <Item value="SendPropertyChanged`1" priority="30" />
+      <Item value="Id" priority="30" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:AutoReservation.Common.DataTransferObjects.AutoKlasse">
+      <Item value="Luxusklasse" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:AutoReservation.Common.DataTransferObjects.AutoDto">
+      <Item value="AutoKlasse" priority="26" />
+      <Item value="GetType`0" priority="49" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary`2">
+      <Item value="Add`0" priority="26" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+</Configuration>
