@@ -12,18 +12,11 @@ namespace AutoReservation.Testing
     [TestClass]
     public class BusinessLayerTest
     {
-        private AutoReservationBusinessComponent target;
+        private AutoReservationBusinessComponent _target;
 
         private AutoReservationBusinessComponent Target
         {
-            get
-            {
-                if (target == null)
-                {
-                    target = new AutoReservationBusinessComponent();
-                }
-                return target;
-            }
+            get { return _target ?? (_target = new AutoReservationBusinessComponent()); }
         }
 
         [TestMethod]

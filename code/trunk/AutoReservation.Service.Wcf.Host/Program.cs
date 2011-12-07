@@ -8,7 +8,7 @@ namespace AutoReservation.Service.Wcf.Host
 {
     public class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Console.WriteLine("AutoReservationService starting...");
             AutoReservationServiceHost.StartService();

@@ -20,8 +20,8 @@ namespace AutoReservation.Ui.ViewModels
     {
         #region Fields
 
-        private readonly Predicate<object> canExecute;
-        private readonly Action<object> execute;
+        private readonly Predicate<object> _canExecute;
+        private readonly Action<object> _execute;
 
         #endregion
 
@@ -45,8 +45,8 @@ namespace AutoReservation.Ui.ViewModels
                 throw new ArgumentNullException("execute");
             }
 
-            this.execute = execute;
-            this.canExecute = canExecute;
+            _execute = execute;
+            _canExecute = canExecute;
         }
 
         #endregion // Constructors
@@ -56,14 +56,14 @@ namespace AutoReservation.Ui.ViewModels
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
-            return canExecute == null ? true : canExecute(parameter);
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public event EventHandler CanExecuteChanged { add { CommandManager.RequerySuggested += value; } remove { CommandManager.RequerySuggested -= value; } }
 
         public void Execute(object parameter)
         {
-            execute(parameter);
+            _execute(parameter);
         }
 
         #endregion

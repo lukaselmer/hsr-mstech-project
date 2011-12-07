@@ -11,23 +11,23 @@ namespace AutoReservation.Common.DataTransferObjects
     [DataContract]
     public class ReservationDto : DtoBase
     {
-        private AutoDto auto;
-        private DateTime bis;
-        private KundeDto kunde;
-        private int reservationNr;
+        private AutoDto _auto;
+        private DateTime _bis;
+        private KundeDto _kunde;
+        private int _reservationNr;
 
-        private DateTime von;
+        private DateTime _von;
 
         [DataMember]
         public int ReservationNr
         {
-            get { return reservationNr; }
+            get { return _reservationNr; }
             set
             {
-                if (reservationNr != value)
+                if (_reservationNr != value)
                 {
                     SendPropertyChanging(() => ReservationNr);
-                    reservationNr = value;
+                    _reservationNr = value;
                     SendPropertyChanged(() => ReservationNr);
                 }
             }
@@ -36,13 +36,13 @@ namespace AutoReservation.Common.DataTransferObjects
         [DataMember]
         public DateTime Von
         {
-            get { return von; }
+            get { return _von; }
             set
             {
-                if (von != value)
+                if (_von != value)
                 {
                     SendPropertyChanging(() => Von);
-                    von = value;
+                    _von = value;
                     SendPropertyChanged(() => Von);
                 }
             }
@@ -51,13 +51,13 @@ namespace AutoReservation.Common.DataTransferObjects
         [DataMember]
         public DateTime Bis
         {
-            get { return bis; }
+            get { return _bis; }
             set
             {
-                if (bis != value)
+                if (_bis != value)
                 {
                     SendPropertyChanging(() => Bis);
-                    bis = value;
+                    _bis = value;
                     SendPropertyChanged(() => Bis);
                 }
             }
@@ -66,13 +66,13 @@ namespace AutoReservation.Common.DataTransferObjects
         [DataMember]
         public AutoDto Auto
         {
-            get { return auto; }
+            get { return _auto; }
             set
             {
-                if (auto != value)
+                if (_auto != value)
                 {
                     SendPropertyChanging(() => Auto);
-                    auto = value;
+                    _auto = value;
                     SendPropertyChanged(() => Auto);
                 }
             }
@@ -81,13 +81,13 @@ namespace AutoReservation.Common.DataTransferObjects
         [DataMember]
         public KundeDto Kunde
         {
-            get { return kunde; }
+            get { return _kunde; }
             set
             {
-                if (kunde != value)
+                if (_kunde != value)
                 {
                     SendPropertyChanging(() => Kunde);
-                    kunde = value;
+                    _kunde = value;
                     SendPropertyChanged(() => Kunde);
                 }
             }

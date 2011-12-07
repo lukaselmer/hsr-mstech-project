@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Dal;
 
@@ -134,9 +135,11 @@ namespace AutoReservation.Service.Wcf
                 return null;
             }
 
-            var reservation = new Reservation {ReservationNr = dto.ReservationNr, Von = dto.Von, Bis = dto.Bis,};
-            reservation.AutoId = dto.Auto.Id;
-            reservation.KundeId = dto.Kunde.Id;
+            var reservation = new Reservation
+                              {
+                                  ReservationNr = dto.ReservationNr, Von = dto.Von, Bis = dto.Bis, AutoId = dto.Auto.Id,
+                                  KundeId = dto.Kunde.Id,
+                              };
 
             return reservation;
         }
@@ -175,12 +178,7 @@ namespace AutoReservation.Service.Wcf
                 return null;
             }
 
-            var target = new List<TTarget>();
-            foreach (var s in source)
-            {
-                target.Add(converter(s));
-            }
-            return target;
+            return source.Select(converter).ToList();
         }
     }
 }

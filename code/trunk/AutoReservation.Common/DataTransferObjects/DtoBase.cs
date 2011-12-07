@@ -13,8 +13,8 @@ namespace AutoReservation.Common.DataTransferObjects
     [DataContract]
     public abstract class DtoBase : INotifyPropertyChanged, INotifyPropertyChanging, ICloneable
     {
-        private PropertyChangedEventHandler propertyChangedEvent;
-        private PropertyChangingEventHandler propertyChangingEvent;
+        private PropertyChangedEventHandler _propertyChangedEvent;
+        private PropertyChangingEventHandler _propertyChangingEvent;
 
         #region ICloneable Members
 
@@ -24,13 +24,13 @@ namespace AutoReservation.Common.DataTransferObjects
 
         #region INotifyPropertyChanged Members
 
-        public event PropertyChangedEventHandler PropertyChanged { add { propertyChangedEvent += value; } remove { propertyChangedEvent -= value; } }
+        public event PropertyChangedEventHandler PropertyChanged { add { _propertyChangedEvent += value; } remove { _propertyChangedEvent -= value; } }
 
         #endregion
 
         #region INotifyPropertyChanging Members
 
-        public event PropertyChangingEventHandler PropertyChanging { add { propertyChangingEvent += value; } remove { propertyChangingEvent -= value; } }
+        public event PropertyChangingEventHandler PropertyChanging { add { _propertyChangingEvent += value; } remove { _propertyChangingEvent -= value; } }
 
         #endregion
 
@@ -39,18 +39,18 @@ namespace AutoReservation.Common.DataTransferObjects
         protected void SendPropertyChanged<T>(Expression<Func<T>> expression)
         {
             var propertyName = ExtractPropertyName(expression);
-            if (propertyChangedEvent != null)
+            if (_propertyChangedEvent != null)
             {
-                propertyChangedEvent(this, new PropertyChangedEventArgs(propertyName));
+                _propertyChangedEvent(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
         protected void SendPropertyChanging<T>(Expression<Func<T>> expression)
         {
             var propertyName = ExtractPropertyName(expression);
-            if (propertyChangingEvent != null)
+            if (_propertyChangingEvent != null)
             {
-                propertyChangingEvent(this, new PropertyChangingEventArgs(propertyName));
+                _propertyChangingEvent(this, new PropertyChangingEventArgs(propertyName));
             }
         }
 

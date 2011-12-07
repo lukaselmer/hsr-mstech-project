@@ -300,7 +300,7 @@ namespace AutoReservation.Testing
             TestEnvironmentHelper.InitializeTestData();
 
             // Client 1
-            var res = Target.Reservationen;
+            //var res = Target.Reservationen;
             var originalReservation1 = Target.Reservationen[0];
             var modifiedReservation1 = (ReservationDto) originalReservation1.Clone();
             modifiedReservation1.Bis = DateTime.Today.AddSeconds(10);

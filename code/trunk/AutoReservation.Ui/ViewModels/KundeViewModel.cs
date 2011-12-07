@@ -14,32 +14,25 @@ namespace AutoReservation.Ui.ViewModels
 {
     public class KundeViewModel : ViewModelBase
     {
-        private readonly List<KundeDto> kundenOriginal = new List<KundeDto>();
-        private ObservableCollection<KundeDto> kunden;
+        private readonly List<KundeDto> _kundenOriginal = new List<KundeDto>();
+        private ObservableCollection<KundeDto> _kunden;
 
-        private KundeDto selectedKunde;
+        private KundeDto _selectedKunde;
 
         public ObservableCollection<KundeDto> Kunden
         {
-            get
-            {
-                if (kunden == null)
-                {
-                    kunden = new ObservableCollection<KundeDto>();
-                }
-                return kunden;
-            }
+            get { return _kunden ?? (_kunden = new ObservableCollection<KundeDto>()); }
         }
 
         public KundeDto SelectedKunde
         {
-            get { return selectedKunde; }
+            get { return _selectedKunde; }
             set
             {
-                if (selectedKunde != value)
+                if (_selectedKunde != value)
                 {
                     SendPropertyChanging(() => SelectedKunde);
-                    selectedKunde = value;
+                    _selectedKunde = value;
                     SendPropertyChanged(() => SelectedKunde);
                 }
             }
@@ -47,28 +40,21 @@ namespace AutoReservation.Ui.ViewModels
 
         #region Load-Command
 
-        private RelayCommand loadCommand;
+        private RelayCommand _loadCommand;
 
         public ICommand LoadCommand
         {
-            get
-            {
-                if (loadCommand == null)
-                {
-                    loadCommand = new RelayCommand(param => Load(), param => CanLoad());
-                }
-                return loadCommand;
-            }
+            get { return _loadCommand ?? (_loadCommand = new RelayCommand(param => Load(), param => CanLoad())); }
         }
 
         protected override void Load()
         {
             Kunden.Clear();
-            kundenOriginal.Clear();
+            _kundenOriginal.Clear();
             foreach (var kunde in Service.Kunden)
             {
                 Kunden.Add(kunde);
-                kundenOriginal.Add((KundeDto) kunde.Clone());
+                _kundenOriginal.Add((KundeDto) kunde.Clone());
             }
             SelectedKunde = Kunden.FirstOrDefault();
         }
@@ -82,18 +68,11 @@ namespace AutoReservation.Ui.ViewModels
 
         #region Save-Command
 
-        private RelayCommand saveCommand;
+        private RelayCommand _saveCommand;
 
         public ICommand SaveCommand
         {
-            get
-            {
-                if (saveCommand == null)
-                {
-                    saveCommand = new RelayCommand(param => SaveData(), param => CanSaveData());
-                }
-                return saveCommand;
-            }
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(param => SaveData(), param => CanSaveData())); }
         }
 
         private void SaveData()
@@ -106,7 +85,7 @@ namespace AutoReservation.Ui.ViewModels
                 }
                 else
                 {
-                    var original = kundenOriginal.Where(ao => ao.Id == kunde.Id).FirstOrDefault();
+                    var original = _kundenOriginal.Where(ao => ao.Id == kunde.Id).FirstOrDefault();
                     Service.UpdateKunde(kunde, original);
                 }
             }
@@ -139,18 +118,11 @@ namespace AutoReservation.Ui.ViewModels
 
         #region New-Command
 
-        private RelayCommand newCommand;
+        private RelayCommand _newCommand;
 
         public ICommand NewCommand
         {
-            get
-            {
-                if (newCommand == null)
-                {
-                    newCommand = new RelayCommand(param => New(), param => CanNew());
-                }
-                return newCommand;
-            }
+            get { return _newCommand ?? (_newCommand = new RelayCommand(param => New(), param => CanNew())); }
         }
 
         private void New()
@@ -167,18 +139,11 @@ namespace AutoReservation.Ui.ViewModels
 
         #region Delete-Command
 
-        private RelayCommand deleteCommand;
+        private RelayCommand _deleteCommand;
 
         public ICommand DeleteCommand
         {
-            get
-            {
-                if (deleteCommand == null)
-                {
-                    deleteCommand = new RelayCommand(param => Delete(), param => CanDelete());
-                }
-                return deleteCommand;
-            }
+            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(param => Delete(), param => CanDelete())); }
         }
 
         private void Delete()

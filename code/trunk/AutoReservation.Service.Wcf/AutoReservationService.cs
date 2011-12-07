@@ -94,8 +94,7 @@ namespace AutoReservation.Service.Wcf
             }
             catch (LocalOptimisticConcurrencyException<Auto> ex)
             {
-                var enThrow = new OptimisticConcurrencyException<AutoDto>();
-                enThrow.Entity = ex.Entity.ConvertToDto();
+                var enThrow = new OptimisticConcurrencyException<AutoDto> {Entity = ex.Entity.ConvertToDto()};
 
                 throw new FaultException<OptimisticConcurrencyException<AutoDto>>(enThrow);
             }
@@ -110,8 +109,7 @@ namespace AutoReservation.Service.Wcf
             }
             catch (LocalOptimisticConcurrencyException<Kunde> ex)
             {
-                var enThrow = new OptimisticConcurrencyException<KundeDto>();
-                enThrow.Entity = ex.Entity.ConvertToDto();
+                var enThrow = new OptimisticConcurrencyException<KundeDto> {Entity = ex.Entity.ConvertToDto()};
 
                 throw new FaultException<OptimisticConcurrencyException<KundeDto>>(enThrow);
             }
@@ -126,8 +124,7 @@ namespace AutoReservation.Service.Wcf
             }
             catch (LocalOptimisticConcurrencyException<Reservation> ex)
             {
-                var enThrow = new OptimisticConcurrencyException<ReservationDto>();
-                enThrow.Entity = ex.Entity.ConvertToDto();
+                var enThrow = new OptimisticConcurrencyException<ReservationDto> {Entity = ex.Entity.ConvertToDto()};
 
                 throw new FaultException<OptimisticConcurrencyException<ReservationDto>>(enThrow);
             }

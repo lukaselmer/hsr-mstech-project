@@ -14,37 +14,30 @@ namespace AutoReservation.Ui.ViewModels
 {
     public class ReservationViewModel : ViewModelBase
     {
-        private readonly List<ReservationDto> reservationenOriginal = new List<ReservationDto>();
-        private ObservableCollection<AutoDto> autos;
-        private ObservableCollection<KundeDto> kunden;
-        private ObservableCollection<ReservationDto> reservationen;
-        private int selectedAutoId;
-        private int selectedKundeId;
+        private readonly List<ReservationDto> _reservationenOriginal = new List<ReservationDto>();
+        private ObservableCollection<AutoDto> _autos;
+        private ObservableCollection<KundeDto> _kunden;
+        private ObservableCollection<ReservationDto> _reservationen;
+        private int _selectedAutoId;
+        private int _selectedKundeId;
 
-        private ReservationDto selectedReservation;
+        private ReservationDto _selectedReservation;
 
         public ObservableCollection<ReservationDto> Reservationen
         {
-            get
-            {
-                if (reservationen == null)
-                {
-                    reservationen = new ObservableCollection<ReservationDto>();
-                }
-                return reservationen;
-            }
+            get { return _reservationen ?? (_reservationen = new ObservableCollection<ReservationDto>()); }
         }
 
         public ReservationDto SelectedReservation
         {
-            get { return selectedReservation; }
+            get { return _selectedReservation; }
             set
             {
-                if (selectedReservation != value)
+                if (_selectedReservation != value)
                 {
                     SendPropertyChanging(() => SelectedReservation);
 
-                    selectedReservation = value;
+                    _selectedReservation = value;
                     SelectedAutoId = value != null && value.Auto != null ? value.Auto.Id : 0;
                     SelectedKundeId = value != null && value.Kunde != null ? value.Kunde.Id : 0;
 
@@ -55,14 +48,14 @@ namespace AutoReservation.Ui.ViewModels
 
         public int SelectedAutoId
         {
-            get { return selectedAutoId; }
+            get { return _selectedAutoId; }
             set
             {
-                if (selectedAutoId != value)
+                if (_selectedAutoId != value)
                 {
                     SendPropertyChanging(() => SelectedAutoId);
 
-                    selectedAutoId = value;
+                    _selectedAutoId = value;
                     if (SelectedReservation != null)
                     {
                         SelectedReservation.Auto = Autos.Where(a => a.Id == value).SingleOrDefault();
@@ -75,14 +68,14 @@ namespace AutoReservation.Ui.ViewModels
 
         public int SelectedKundeId
         {
-            get { return selectedKundeId; }
+            get { return _selectedKundeId; }
             set
             {
-                if (selectedKundeId != value)
+                if (_selectedKundeId != value)
                 {
                     SendPropertyChanging(() => SelectedKundeId);
 
-                    selectedKundeId = value;
+                    _selectedKundeId = value;
                     if (SelectedReservation != null)
                     {
                         SelectedReservation.Kunde = Kunden.Where(k => k.Id == value).SingleOrDefault();
@@ -95,42 +88,21 @@ namespace AutoReservation.Ui.ViewModels
 
         public ObservableCollection<AutoDto> Autos
         {
-            get
-            {
-                if (autos == null)
-                {
-                    autos = new ObservableCollection<AutoDto>();
-                }
-                return autos;
-            }
+            get { return _autos ?? (_autos = new ObservableCollection<AutoDto>()); }
         }
 
         public ObservableCollection<KundeDto> Kunden
         {
-            get
-            {
-                if (kunden == null)
-                {
-                    kunden = new ObservableCollection<KundeDto>();
-                }
-                return kunden;
-            }
+            get { return _kunden ?? (_kunden = new ObservableCollection<KundeDto>()); }
         }
 
         #region Load-Command
 
-        private RelayCommand loadCommand;
+        private RelayCommand _loadCommand;
 
         public ICommand LoadCommand
         {
-            get
-            {
-                if (loadCommand == null)
-                {
-                    loadCommand = new RelayCommand(param => Load(), param => CanLoad());
-                }
-                return loadCommand;
-            }
+            get { return _loadCommand ?? (_loadCommand = new RelayCommand(param => Load(), param => CanLoad())); }
         }
 
         protected override void Load()
@@ -148,11 +120,11 @@ namespace AutoReservation.Ui.ViewModels
             }
 
             Reservationen.Clear();
-            reservationenOriginal.Clear();
+            _reservationenOriginal.Clear();
             foreach (var reservation in Service.Reservationen)
             {
                 Reservationen.Add(reservation);
-                reservationenOriginal.Add((ReservationDto) reservation.Clone());
+                _reservationenOriginal.Add((ReservationDto) reservation.Clone());
             }
             SelectedReservation = Reservationen.FirstOrDefault();
         }
@@ -166,18 +138,11 @@ namespace AutoReservation.Ui.ViewModels
 
         #region Save-Command
 
-        private RelayCommand saveCommand;
+        private RelayCommand _saveCommand;
 
         public ICommand SaveCommand
         {
-            get
-            {
-                if (saveCommand == null)
-                {
-                    saveCommand = new RelayCommand(param => SaveData(), param => CanSaveData());
-                }
-                return saveCommand;
-            }
+            get { return _saveCommand ?? (_saveCommand = new RelayCommand(param => SaveData(), param => CanSaveData())); }
         }
 
         private void SaveData()
@@ -191,7 +156,7 @@ namespace AutoReservation.Ui.ViewModels
                 else
                 {
                     var original =
-                        reservationenOriginal.Where(ao => ao.ReservationNr == reservation.ReservationNr).FirstOrDefault();
+                        _reservationenOriginal.Where(ao => ao.ReservationNr == reservation.ReservationNr).FirstOrDefault();
                     Service.UpdateReservation(reservation, original);
                 }
             }
@@ -224,18 +189,11 @@ namespace AutoReservation.Ui.ViewModels
 
         #region New-Command
 
-        private RelayCommand newCommand;
+        private RelayCommand _newCommand;
 
         public ICommand NewCommand
         {
-            get
-            {
-                if (newCommand == null)
-                {
-                    newCommand = new RelayCommand(param => New(), param => CanNew());
-                }
-                return newCommand;
-            }
+            get { return _newCommand ?? (_newCommand = new RelayCommand(param => New(), param => CanNew())); }
         }
 
         private void New()
@@ -252,18 +210,11 @@ namespace AutoReservation.Ui.ViewModels
 
         #region Delete-Command
 
-        private RelayCommand deleteCommand;
+        private RelayCommand _deleteCommand;
 
         public ICommand DeleteCommand
         {
-            get
-            {
-                if (deleteCommand == null)
-                {
-                    deleteCommand = new RelayCommand(param => Delete(), param => CanDelete());
-                }
-                return deleteCommand;
-            }
+            get { return _deleteCommand ?? (_deleteCommand = new RelayCommand(param => Delete(), param => CanDelete())); }
         }
 
         private void Delete()

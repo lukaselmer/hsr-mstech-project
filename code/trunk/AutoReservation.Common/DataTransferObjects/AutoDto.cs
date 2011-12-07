@@ -10,101 +10,91 @@ namespace AutoReservation.Common.DataTransferObjects
     [DataContract]
     public class AutoDto : DtoBase
     {
-        private AutoKlasse autoKlasse;
-        private int basistarif;
-        private int id;
+        private AutoKlasse _autoKlasse;
+        private int _basistarif;
+        private int _id;
 
-        private string marke;
+        private string _marke;
 
-        private int tagestarif;
+        private int _tagestarif;
 
         [DataMember]
         public int Id
         {
-            get { return id; }
+            get { return _id; }
             set
             {
-                if (id != value)
-                {
-                    SendPropertyChanging(() => Id);
-                    id = value;
-                    SendPropertyChanged(() => Id);
-                }
+                if (_id == value) return;
+                SendPropertyChanging(() => Id);
+                _id = value;
+                SendPropertyChanged(() => Id);
             }
         }
 
         [DataMember]
         public string Marke
         {
-            get { return marke; }
+            get { return _marke; }
             set
             {
-                if (marke != value)
-                {
-                    SendPropertyChanging(() => Marke);
-                    marke = value;
-                    SendPropertyChanged(() => Marke);
-                }
+                if (_marke == value) return;
+                SendPropertyChanging(() => Marke);
+                _marke = value;
+                SendPropertyChanged(() => Marke);
             }
         }
 
         [DataMember]
         public int Tagestarif
         {
-            get { return tagestarif; }
+            get { return _tagestarif; }
             set
             {
-                if (tagestarif != value)
-                {
-                    SendPropertyChanging(() => Tagestarif);
-                    tagestarif = value;
-                    SendPropertyChanged(() => Tagestarif);
-                }
+                if (_tagestarif == value) return;
+                SendPropertyChanging(() => Tagestarif);
+                _tagestarif = value;
+                SendPropertyChanged(() => Tagestarif);
             }
         }
 
         [DataMember]
         public int Basistarif
         {
-            get { return basistarif; }
+            get { return _basistarif; }
             set
             {
-                if (basistarif != value)
-                {
-                    SendPropertyChanging(() => Basistarif);
-                    basistarif = value;
-                    SendPropertyChanged(() => Basistarif);
-                }
+                if (_basistarif == value) return;
+                SendPropertyChanging(() => Basistarif);
+                _basistarif = value;
+                SendPropertyChanged(() => Basistarif);
             }
         }
 
         [DataMember]
         public AutoKlasse AutoKlasse
         {
-            get { return autoKlasse; }
+            get { return _autoKlasse; }
             set
             {
-                if (autoKlasse != value)
-                {
-                    SendPropertyChanging(() => AutoKlasse);
-                    autoKlasse = value;
-                    SendPropertyChanged(() => AutoKlasse);
-                }
+                if (_autoKlasse == value) return;
+                SendPropertyChanging(() => AutoKlasse);
+                _autoKlasse = value;
+                SendPropertyChanged(() => AutoKlasse);
             }
         }
 
         public override string Validate()
         {
             var error = new StringBuilder();
-            if (string.IsNullOrEmpty(marke))
+            if (string.IsNullOrEmpty(_marke))
             {
                 error.AppendLine("- Marke ist nicht gesetzt.");
             }
-            if (tagestarif <= 0)
+            if (_tagestarif <= 0)
             {
                 error.AppendLine("- Tagestarif muss grösser als 0 sein.");
             }
-            if (AutoKlasse == AutoKlasse.Luxusklasse && basistarif <= 0)
+            if (AutoKlasse == AutoKlasse.Luxusklasse && _basistarif <= 0)
             {
                 error.AppendLine("- Basistarif eines Luxusautos muss grösser als 0 sein.");
             }

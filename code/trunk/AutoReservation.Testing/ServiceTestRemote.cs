@@ -11,18 +11,18 @@ namespace AutoReservation.Testing
     [TestClass]
     public class ServiceTestRemote : ServiceTestBase
     {
-        private IAutoReservationService target;
+        private IAutoReservationService _target;
 
         protected override IAutoReservationService Target
         {
             get
             {
-                if (target == null)
+                if (_target == null)
                 {
                     var channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
-                    target = channelFactory.CreateChannel();
+                    _target = channelFactory.CreateChannel();
                 }
-                return target;
+                return _target;
             }
         }
     }

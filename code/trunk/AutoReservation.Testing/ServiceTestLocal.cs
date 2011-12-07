@@ -11,18 +11,11 @@ namespace AutoReservation.Testing
     [TestClass]
     public class ServiceTestLocal : ServiceTestBase
     {
-        private IAutoReservationService target;
+        private IAutoReservationService _target;
 
         protected override IAutoReservationService Target
         {
-            get
-            {
-                if (target == null)
-                {
-                    target = new AutoReservationService();
-                }
-                return target;
-            }
+            get { return _target ?? (_target = new AutoReservationService()); }
         }
     }
 }

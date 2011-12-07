@@ -15,8 +15,7 @@ namespace AutoReservation.Testing
         {
             using (var myConnection = new SqlConnection(ConnectionString))
             {
-                var myCommand = new SqlCommand();
-                myCommand.Connection = myConnection;
+                var myCommand = new SqlCommand {Connection = myConnection};
 
                 // Open the connection.
                 myConnection.Open();
@@ -43,8 +42,7 @@ namespace AutoReservation.Testing
         {
             using (var myConnection = new SqlConnection(ConnectionString))
             {
-                var myCommand = new SqlCommand();
-                myCommand.Connection = myConnection;
+                var myCommand = new SqlCommand {Connection = myConnection};
 
                 // Open the connection.
                 myConnection.Open();
@@ -67,8 +65,7 @@ namespace AutoReservation.Testing
         {
             using (var myConnection = new SqlConnection(ConnectionString))
             {
-                var myCommand = new SqlCommand();
-                myCommand.Connection = myConnection;
+                var myCommand = new SqlCommand {Connection = myConnection};
 
                 // Open the connection.
                 myConnection.Open();
@@ -84,8 +81,7 @@ namespace AutoReservation.Testing
         {
             using (var myConnection = new SqlConnection(ConnectionString))
             {
-                var myCommand = new SqlCommand();
-                myCommand.Connection = myConnection;
+                var myCommand = new SqlCommand {Connection = myConnection};
 
                 // Open the connection.
                 myConnection.Open();
