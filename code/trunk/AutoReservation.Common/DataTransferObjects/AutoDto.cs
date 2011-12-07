@@ -1,101 +1,118 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.Text;
 
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
-    //[KnownType(typeof(LuxusAuto)), KnownType(typeof(BoredStudent))]
     public class AutoDto : DtoBase
     {
-        private int _id;
-
+        private int id;
         [DataMember]
         public int Id
         {
-            get { return _id; }
+            get
+            {
+                return id;
+            }
             set
             {
-                if (Id == value) return;
-                SendPropertyChanging(() => Id);
-                _id = value;
-                SendPropertyChanged(() => Id);
+                if (id != value)
+                {
+                    SendPropertyChanging(() => Id);
+                    id = value;
+                    SendPropertyChanged(() => Id);
+                }
             }
         }
 
-        private string _marke;
-
+        private string marke;
         [DataMember]
         public string Marke
         {
-            get { return _marke; }
+            get
+            {
+                return marke;
+            }
             set
             {
-                if (Marke == value) return;
-                SendPropertyChanging(() => Marke);
-                _marke = value;
-                SendPropertyChanged(() => Marke);
+                if (marke != value)
+                {
+                    SendPropertyChanging(() => Marke);
+                    marke = value;
+                    SendPropertyChanged(() => Marke);
+                }
             }
         }
 
-        private int _tagestarif;
-
+        private int tagestarif;
         [DataMember]
         public int Tagestarif
         {
-            get { return _tagestarif; }
+            get
+            {
+                return tagestarif;
+            }
             set
             {
-                if (Tagestarif == value) return;
-                SendPropertyChanging(() => Tagestarif);
-                _tagestarif = value;
-                SendPropertyChanged(() => Tagestarif);
+                if (tagestarif != value)
+                {
+                    SendPropertyChanging(() => Tagestarif);
+                    tagestarif = value;
+                    SendPropertyChanged(() => Tagestarif);
+                }
             }
         }
 
-        private int _basistarif;
-
+        private int basistarif;
         [DataMember]
         public int Basistarif
         {
-            get { return _basistarif; }
+            get
+            {
+                return basistarif;
+            }
             set
             {
-                if (Basistarif == value) return;
-                SendPropertyChanging(() => Basistarif);
-                _basistarif = value;
-                SendPropertyChanged(() => Basistarif);
+                if (basistarif != value)
+                {
+                    SendPropertyChanging(() => Basistarif);
+                    basistarif = value;
+                    SendPropertyChanged(() => Basistarif);
+                }
             }
         }
 
-        private AutoKlasse _autoKlasse;
-
+        private AutoKlasse autoKlasse;
         [DataMember]
         public AutoKlasse AutoKlasse
         {
-            get { return _autoKlasse; }
+            get
+            {
+                return autoKlasse;
+            }
             set
             {
-                if (AutoKlasse == value) return;
-                SendPropertyChanging(() => AutoKlasse);
-                _autoKlasse = value;
-                SendPropertyChanged(() => AutoKlasse);
+                if (autoKlasse != value)
+                {
+                    SendPropertyChanging(() => AutoKlasse);
+                    autoKlasse = value;
+                    SendPropertyChanged(() => AutoKlasse);
+                }
             }
         }
 
         public override string Validate()
         {
             StringBuilder error = new StringBuilder();
-            if (string.IsNullOrEmpty(Marke))
+            if (string.IsNullOrEmpty(marke))
             {
                 error.AppendLine("- Marke ist nicht gesetzt.");
             }
-            if (Tagestarif <= 0)
+            if (tagestarif <= 0)
             {
                 error.AppendLine("- Tagestarif muss grösser als 0 sein.");
             }
-            if (AutoKlasse == AutoKlasse.Luxusklasse && Basistarif <= 0)
+            if (AutoKlasse == AutoKlasse.Luxusklasse && basistarif <= 0)
             {
                 error.AppendLine("- Basistarif eines Luxusautos muss grösser als 0 sein.");
             }
@@ -116,7 +133,7 @@ namespace AutoReservation.Common.DataTransferObjects
                 Basistarif = Basistarif
             };
         }
-
+        
         public override string ToString()
         {
             return string.Format(

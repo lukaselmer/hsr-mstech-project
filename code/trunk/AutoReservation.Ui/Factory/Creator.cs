@@ -1,10 +1,9 @@
-using System;
-using AutoReservation.Service.Wcf;
+﻿using System;
+using AutoReservation.Common.Interfaces;
 using AutoReservation.Ui.Properties;
 
 namespace AutoReservation.Ui.Factory
 {
-
     public abstract class Creator
     {
         public abstract IAutoReservationService CreateBusinessLayerInstance();

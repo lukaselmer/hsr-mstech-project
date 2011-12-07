@@ -5,6 +5,7 @@ using System.ServiceModel;
 using AutoReservation.BusinessLayer;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Exceptions;
+using AutoReservation.Common.Interfaces;
 using AutoReservation.Dal;
 
 namespace AutoReservation.Service.Wcf

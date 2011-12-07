@@ -3,11 +3,8 @@ using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Threading;
-//using AutoReservation.Common.Interfaces;
-using AutoReservation.Service.Wcf;
+using AutoReservation.Common.Interfaces;
 using AutoReservation.Ui.Factory;
-
-//using AutoReservation.Ui.Factory;
 
 namespace AutoReservation.Ui.ViewModels
 {

@@ -1,7 +1,7 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.Objects;
 using System.Linq;
+using System.Data.Objects;
 using AutoReservation.Dal;
 
 namespace AutoReservation.BusinessLayer

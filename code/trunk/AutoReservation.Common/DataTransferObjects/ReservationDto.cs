@@ -7,36 +7,100 @@ namespace AutoReservation.Common.DataTransferObjects
     [DataContract]
     public class ReservationDto : DtoBase
     {
-        private int _reservationNr;
-
+        private int reservationNr;
         [DataMember]
-        public int ReservationNr { get { return _reservationNr; } set { _reservationNr = value; } }
+        public int ReservationNr
+        {
+            get
+            {
+                return reservationNr;
+            }
+            set
+            {
+                if (reservationNr != value)
+                {
+                    SendPropertyChanging(() => ReservationNr);
+                    reservationNr = value;
+                    SendPropertyChanged(() => ReservationNr);
+                }
+            }
+        }
 
-        private int _autoId;
-
+        private DateTime von;
         [DataMember]
-        public int AutoId { get { return _autoId; } set { _autoId = value; } }
+        public DateTime Von
+        {
+            get
+            {
+                return von;
+            }
+            set
+            {
+                if (von != value)
+                {
+                    SendPropertyChanging(() => Von);
+                    von = value;
+                    SendPropertyChanged(() => Von);
+                }
+            }
+        }
 
-        private int _kundeId;
-
+        private DateTime bis;
         [DataMember]
-        public int KundeId { get { return _kundeId; } set { _kundeId = value; } }
+        public DateTime Bis
+        {
+            get
+            {
+                return bis;
+            }
+            set
+            {
+                if (bis != value)
+                {
+                    SendPropertyChanging(() => Bis);
+                    bis = value;
+                    SendPropertyChanged(() => Bis);
+                }
+            }
+        }
 
-        private DateTime _von;
-
+        private AutoDto auto;
         [DataMember]
-        public DateTime Von { get { return _von; } set { _von = value; } }
+        public AutoDto Auto
+        {
+            get
+            {
+                return auto;
+            }
+            set
+            {
+                if (auto != value)
+                {
+                    SendPropertyChanging(() => Auto);
+                    auto = value;
+                    SendPropertyChanged(() => Auto);
+                }
+            }
+        }
 
-        private DateTime _bis;
-
+        private KundeDto kunde;
         [DataMember]
-        public DateTime Bis { get { return _bis; } set { _bis = value; } }
-
-        //[DataMember(IsReference = true)]
-        [DataMember]
-        public AutoDto Auto { get; set; }
-        [DataMember]
-        public KundeDto Kunde { get; set; }
+        public KundeDto Kunde
+        {
+            get
+            {
+                return kunde;
+            }
+            set
+            {
+                if (kunde != value)
+                {
+                    SendPropertyChanging(() => Kunde);
+                    kunde = value;
+                    SendPropertyChanged(() => Kunde);
+                }
+            }
+        }
 
         public override string Validate()
         {

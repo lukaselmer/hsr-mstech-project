@@ -112,6 +112,7 @@
     <Compile Include="Converters\DetailViewVisibilityConverter.cs" />
     <Compile Include="Factory\Creator.cs" />
     <Compile Include="ViewModels\KundeViewModel.cs" />
+    <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="Views\AutoView.xaml.cs">
       <DependentUpon>AutoView.xaml</DependentUpon>
     </Compile>

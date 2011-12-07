@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Exceptions;
 
-namespace AutoReservation.Service.Wcf
+namespace AutoReservation.Common.Interfaces
 {
     [ServiceContract(Name = "Auto Reservation Service")]
     public interface IAutoReservationService
@@ -19,7 +19,7 @@ namespace AutoReservation.Service.Wcf
             [OperationContract]
             get;
         }
-
+  
         List<ReservationDto> Reservationen
         {
             [OperationContract]
@@ -34,7 +34,7 @@ namespace AutoReservation.Service.Wcf
 
         [OperationContract]
         ReservationDto GetReservationByNr(int reservationNr);
-
+    
         [OperationContract]
         int InsertAuto(AutoDto auto);
 
@@ -55,13 +55,13 @@ namespace AutoReservation.Service.Wcf
         [OperationContract]
         [FaultContract(typeof(OptimisticConcurrencyException<ReservationDto>))]
         void UpdateReservation(ReservationDto modified, ReservationDto original);
-
+        
         [OperationContract]
         void DeleteAuto(AutoDto auto);
 
         [OperationContract]
         void DeleteKunde(KundeDto kunde);
-
+        
         [OperationContract]
         void DeleteReservation(ReservationDto reservation);
     }

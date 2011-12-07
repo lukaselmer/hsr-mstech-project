@@ -1,3 +1,4 @@
+﻿using AutoReservation.Common.Interfaces;
 using AutoReservation.Service.Wcf;
 
 namespace AutoReservation.Ui.Factory

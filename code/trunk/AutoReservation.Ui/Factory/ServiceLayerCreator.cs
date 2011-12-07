@@ -1,5 +1,5 @@
-using System.ServiceModel;
-using AutoReservation.Service.Wcf;
+﻿using System.ServiceModel;
+using AutoReservation.Common.Interfaces;
 
 namespace AutoReservation.Ui.Factory
 {
