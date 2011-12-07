@@ -1,5 +1,9 @@
-﻿using System.Runtime.Serialization;
+﻿#region
+
+using System.Runtime.Serialization;
 using AutoReservation.Common.DataTransferObjects;
+
+#endregion
 
 namespace AutoReservation.Common.Exceptions
 {

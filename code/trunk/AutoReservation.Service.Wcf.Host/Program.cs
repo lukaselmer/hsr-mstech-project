@@ -1,10 +1,14 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace AutoReservation.Service.Wcf.Host
 {
     public class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("AutoReservationService starting...");
             AutoReservationServiceHost.StartService();

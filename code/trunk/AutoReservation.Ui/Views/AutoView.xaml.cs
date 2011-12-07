@@ -1,5 +1,9 @@
-﻿using System.Windows.Controls;
+﻿#region
+
+using System.Windows.Controls;
 using AutoReservation.Ui.ViewModels;
+
+#endregion
 
 namespace AutoReservation.Ui.Views
 {

@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Diagnostics;
 using System.Windows.Input;
+
+#endregion
 
 namespace AutoReservation.Ui.ViewModels
 {
@@ -16,8 +20,8 @@ namespace AutoReservation.Ui.ViewModels
     {
         #region Fields
 
-        readonly Action<object> execute;
-        readonly Predicate<object> canExecute;
+        private readonly Predicate<object> canExecute;
+        private readonly Action<object> execute;
 
         #endregion
 
@@ -27,7 +31,7 @@ namespace AutoReservation.Ui.ViewModels
         /// Creates a new command that can always execute.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
-        public RelayCommand(Action<object> execute) : this(execute, null) { }
+        public RelayCommand(Action<object> execute) : this(execute, null) {}
 
         /// <summary>
         /// Creates a new command.
@@ -36,7 +40,10 @@ namespace AutoReservation.Ui.ViewModels
         /// <param name="canExecute">The execution status logic.</param>
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
-            if (execute == null) { throw new ArgumentNullException("execute"); }
+            if (execute == null)
+            {
+                throw new ArgumentNullException("execute");
+            }
 
             this.execute = execute;
             this.canExecute = canExecute;
@@ -52,11 +59,7 @@ namespace AutoReservation.Ui.ViewModels
             return canExecute == null ? true : canExecute(parameter);
         }
 
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
+        public event EventHandler CanExecuteChanged { add { CommandManager.RequerySuggested += value; } remove { CommandManager.RequerySuggested -= value; } }
 
         public void Execute(object parameter)
         {

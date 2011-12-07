@@ -1,7 +1,10 @@
-﻿using System.Windows.Input;
+﻿#region
+
 using AutoReservation.Testing;
 using AutoReservation.Ui.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#endregion
 
 namespace AutoReservation.Ui.Testing
 {
@@ -13,8 +16,8 @@ namespace AutoReservation.Ui.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            AutoViewModel target = new AutoViewModel();
-            ICommand targetCommand = target.LoadCommand;
+            var target = new AutoViewModel();
+            var targetCommand = target.LoadCommand;
 
             Assert.IsTrue(targetCommand.CanExecute(null));
 
@@ -28,8 +31,8 @@ namespace AutoReservation.Ui.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            KundeViewModel target = new KundeViewModel();
-            ICommand targetCommand = target.LoadCommand;
+            var target = new KundeViewModel();
+            var targetCommand = target.LoadCommand;
 
             Assert.IsTrue(targetCommand.CanExecute(null));
 
@@ -43,8 +46,8 @@ namespace AutoReservation.Ui.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            ReservationViewModel target = new ReservationViewModel();
-            ICommand targetCommand = target.LoadCommand;
+            var target = new ReservationViewModel();
+            var targetCommand = target.LoadCommand;
 
             Assert.IsTrue(targetCommand.CanExecute(null));
 

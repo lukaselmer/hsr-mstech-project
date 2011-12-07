@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -6,12 +8,21 @@ using System.Text;
 using System.Windows.Input;
 using AutoReservation.Common.DataTransferObjects;
 
+#endregion
+
 namespace AutoReservation.Ui.ViewModels
 {
     public class ReservationViewModel : ViewModelBase
     {
         private readonly List<ReservationDto> reservationenOriginal = new List<ReservationDto>();
+        private ObservableCollection<AutoDto> autos;
+        private ObservableCollection<KundeDto> kunden;
         private ObservableCollection<ReservationDto> reservationen;
+        private int selectedAutoId;
+        private int selectedKundeId;
+
+        private ReservationDto selectedReservation;
+
         public ObservableCollection<ReservationDto> Reservationen
         {
             get
@@ -24,7 +35,6 @@ namespace AutoReservation.Ui.ViewModels
             }
         }
 
-        private ReservationDto selectedReservation;
         public ReservationDto SelectedReservation
         {
             get { return selectedReservation; }
@@ -43,7 +53,6 @@ namespace AutoReservation.Ui.ViewModels
             }
         }
 
-        private int selectedAutoId;
         public int SelectedAutoId
         {
             get { return selectedAutoId; }
@@ -64,7 +73,6 @@ namespace AutoReservation.Ui.ViewModels
             }
         }
 
-        private int selectedKundeId;
         public int SelectedKundeId
         {
             get { return selectedKundeId; }
@@ -85,7 +93,6 @@ namespace AutoReservation.Ui.ViewModels
             }
         }
 
-        private ObservableCollection<AutoDto> autos;
         public ObservableCollection<AutoDto> Autos
         {
             get
@@ -98,7 +105,6 @@ namespace AutoReservation.Ui.ViewModels
             }
         }
 
-        private ObservableCollection<KundeDto> kunden;
         public ObservableCollection<KundeDto> Kunden
         {
             get
@@ -121,10 +127,7 @@ namespace AutoReservation.Ui.ViewModels
             {
                 if (loadCommand == null)
                 {
-                    loadCommand = new RelayCommand(
-                        param => Load(),
-                        param => CanLoad()
-                    );
+                    loadCommand = new RelayCommand(param => Load(), param => CanLoad());
                 }
                 return loadCommand;
             }
@@ -133,17 +136,23 @@ namespace AutoReservation.Ui.ViewModels
         protected override void Load()
         {
             Kunden.Clear();
-            foreach (KundeDto kunde in Service.Kunden) { Kunden.Add(kunde); }
+            foreach (var kunde in Service.Kunden)
+            {
+                Kunden.Add(kunde);
+            }
 
             Autos.Clear();
-            foreach (AutoDto auto in Service.Autos) { Autos.Add(auto); }
+            foreach (var auto in Service.Autos)
+            {
+                Autos.Add(auto);
+            }
 
             Reservationen.Clear();
             reservationenOriginal.Clear();
-            foreach (ReservationDto reservation in Service.Reservationen)
+            foreach (var reservation in Service.Reservationen)
             {
                 Reservationen.Add(reservation);
-                reservationenOriginal.Add((ReservationDto)reservation.Clone());
+                reservationenOriginal.Add((ReservationDto) reservation.Clone());
             }
             SelectedReservation = Reservationen.FirstOrDefault();
         }
@@ -165,10 +174,7 @@ namespace AutoReservation.Ui.ViewModels
             {
                 if (saveCommand == null)
                 {
-                    saveCommand = new RelayCommand(
-                        param => SaveData(),
-                        param => CanSaveData()
-                    );
+                    saveCommand = new RelayCommand(param => SaveData(), param => CanSaveData());
                 }
                 return saveCommand;
             }
@@ -176,7 +182,7 @@ namespace AutoReservation.Ui.ViewModels
 
         private void SaveData()
         {
-            foreach (ReservationDto reservation in Reservationen)
+            foreach (var reservation in Reservationen)
             {
                 if (reservation.ReservationNr == default(int))
                 {
@@ -184,7 +190,8 @@ namespace AutoReservation.Ui.ViewModels
                 }
                 else
                 {
-                    ReservationDto original = reservationenOriginal.Where(ao => ao.ReservationNr == reservation.ReservationNr).FirstOrDefault();
+                    var original =
+                        reservationenOriginal.Where(ao => ao.ReservationNr == reservation.ReservationNr).FirstOrDefault();
                     Service.UpdateReservation(reservation, original);
                 }
             }
@@ -198,10 +205,10 @@ namespace AutoReservation.Ui.ViewModels
                 return false;
             }
 
-            StringBuilder errorText = new StringBuilder();
-            foreach (ReservationDto reservation in Reservationen)
+            var errorText = new StringBuilder();
+            foreach (var reservation in Reservationen)
             {
-                string error = reservation.Validate();
+                var error = reservation.Validate();
                 if (!string.IsNullOrEmpty(error))
                 {
                     errorText.AppendLine(reservation.ToString());
@@ -225,10 +232,7 @@ namespace AutoReservation.Ui.ViewModels
             {
                 if (newCommand == null)
                 {
-                    newCommand = new RelayCommand(
-                        param => New(),
-                        param => CanNew()
-                    );
+                    newCommand = new RelayCommand(param => New(), param => CanNew());
                 }
                 return newCommand;
             }
@@ -236,11 +240,7 @@ namespace AutoReservation.Ui.ViewModels
 
         private void New()
         {
-            Reservationen.Add(new ReservationDto
-            {
-                Von = DateTime.Today,
-                Bis = DateTime.Today
-            });
+            Reservationen.Add(new ReservationDto {Von = DateTime.Today, Bis = DateTime.Today});
         }
 
         private bool CanNew()
@@ -260,10 +260,7 @@ namespace AutoReservation.Ui.ViewModels
             {
                 if (deleteCommand == null)
                 {
-                    deleteCommand = new RelayCommand(
-                        param => Delete(),
-                        param => CanDelete()
-                    );
+                    deleteCommand = new RelayCommand(param => Delete(), param => CanDelete());
                 }
                 return deleteCommand;
             }
@@ -277,13 +274,9 @@ namespace AutoReservation.Ui.ViewModels
 
         private bool CanDelete()
         {
-            return
-                SelectedReservation != null &&
-                SelectedReservation.ReservationNr != default(int) &&
-                Service != null;
+            return SelectedReservation != null && SelectedReservation.ReservationNr != default(int) && Service != null;
         }
 
         #endregion
-
     }
 }

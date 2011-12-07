@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.ServiceModel;
@@ -8,20 +10,16 @@ using AutoReservation.Common.Exceptions;
 using AutoReservation.Common.Interfaces;
 using AutoReservation.Dal;
 
+#endregion
+
 namespace AutoReservation.Service.Wcf
 {
     public class AutoReservationService : IAutoReservationService
     {
-        private static void WriteActualMethod()
-        {
-            Console.WriteLine("Calling: " + new StackTrace().GetFrame(1).GetMethod().Name);
-        }
-
         private AutoReservationBusinessComponent _businessComponent;
-        private AutoReservationBusinessComponent BusinessComponent
-        {
-            get { return _businessComponent ?? (_businessComponent = new AutoReservationBusinessComponent()); }
-        }
+        private AutoReservationBusinessComponent BusinessComponent { get { return _businessComponent ?? (_businessComponent = new AutoReservationBusinessComponent()); } }
+
+        #region IAutoReservationService Members
 
         public List<AutoDto> Autos
         {
@@ -59,7 +57,7 @@ namespace AutoReservation.Service.Wcf
         public KundeDto GetKundeById(int id)
         {
             WriteActualMethod();
-            Kunde k = BusinessComponent.GetKundeById(id);
+            var k = BusinessComponent.GetKundeById(id);
             return k.ConvertToDto();
         }
 
@@ -96,13 +94,12 @@ namespace AutoReservation.Service.Wcf
             }
             catch (LocalOptimisticConcurrencyException<Auto> ex)
             {
-                OptimisticConcurrencyException<AutoDto> enThrow = new OptimisticConcurrencyException<AutoDto>();
+                var enThrow = new OptimisticConcurrencyException<AutoDto>();
                 enThrow.Entity = ex.Entity.ConvertToDto();
 
                 throw new FaultException<OptimisticConcurrencyException<AutoDto>>(enThrow);
             }
         }
-
 
         public void UpdateKunde(KundeDto modified, KundeDto original)
         {
@@ -113,7 +110,7 @@ namespace AutoReservation.Service.Wcf
             }
             catch (LocalOptimisticConcurrencyException<Kunde> ex)
             {
-                OptimisticConcurrencyException<KundeDto> enThrow = new OptimisticConcurrencyException<KundeDto>();
+                var enThrow = new OptimisticConcurrencyException<KundeDto>();
                 enThrow.Entity = ex.Entity.ConvertToDto();
 
                 throw new FaultException<OptimisticConcurrencyException<KundeDto>>(enThrow);
@@ -129,7 +126,7 @@ namespace AutoReservation.Service.Wcf
             }
             catch (LocalOptimisticConcurrencyException<Reservation> ex)
             {
-                OptimisticConcurrencyException<ReservationDto> enThrow = new OptimisticConcurrencyException<ReservationDto>();
+                var enThrow = new OptimisticConcurrencyException<ReservationDto>();
                 enThrow.Entity = ex.Entity.ConvertToDto();
 
                 throw new FaultException<OptimisticConcurrencyException<ReservationDto>>(enThrow);
@@ -152,6 +149,13 @@ namespace AutoReservation.Service.Wcf
         {
             WriteActualMethod();
             BusinessComponent.DeleteReservation(reservation.ConvertToEntity());
+        }
+
+        #endregion
+
+        private static void WriteActualMethod()
+        {
+            Console.WriteLine("Calling: " + new StackTrace().GetFrame(1).GetMethod().Name);
         }
     }
 }

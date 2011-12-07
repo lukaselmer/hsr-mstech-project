@@ -1,10 +1,14 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows.Threading;
 using AutoReservation.Common.Interfaces;
 using AutoReservation.Ui.Factory;
+
+#endregion
 
 namespace AutoReservation.Ui.ViewModels
 {
@@ -13,9 +17,10 @@ namespace AutoReservation.Ui.ViewModels
         protected readonly IAutoReservationService Service;
 
         private readonly Dispatcher dispatcher;
+        private string errorText;
 
-        private PropertyChangingEventHandler propertyChangingEvent;
         private PropertyChangedEventHandler propertyChangedEvent;
+        private PropertyChangingEventHandler propertyChangingEvent;
 
         protected ViewModelBase()
         {
@@ -31,46 +36,11 @@ namespace AutoReservation.Ui.ViewModels
             Load();
         }
 
-        public event PropertyChangingEventHandler PropertyChanging
-        {
-            add { propertyChangingEvent += value; }
-            remove { propertyChangingEvent -= value; }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged
-        {
-            add { propertyChangedEvent += value; }
-            remove { propertyChangedEvent -= value; }
-        }
-
         public Dispatcher Dispatcher { get { return dispatcher; } }
 
-        protected void SendPropertyChanged<T>(Expression<Func<T>> expression)
-        {
-            var propertyName = ExtractPropertyName(expression);
-            if (propertyChangedEvent != null)
-            {
-                propertyChangedEvent(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-        protected void SendPropertyChanging<T>(Expression<Func<T>> expression)
-        {
-            var propertyName = ExtractPropertyName(expression);
-            if (propertyChangingEvent != null)
-            {
-                propertyChangingEvent(this, new PropertyChangingEventArgs(propertyName));
-            }
-        }
-
-        protected abstract void Load();
-
-        private string errorText;
         public string ErrorText
         {
-            get
-            {
-                return errorText;
-            }
+            get { return errorText; }
             set
             {
                 if (errorText != value)
@@ -94,7 +64,8 @@ namespace AutoReservation.Ui.ViewModels
             var memberExpression = expression.Body as MemberExpression;
             if (memberExpression == null)
             {
-                throw new ArgumentException("Der Ausdruck ist kein Member-Lamda-Ausdruck (MemberExpression).", "expression");
+                throw new ArgumentException("Der Ausdruck ist kein Member-Lamda-Ausdruck (MemberExpression).",
+                    "expression");
             }
 
             var property = memberExpression.Member as PropertyInfo;
@@ -103,9 +74,10 @@ namespace AutoReservation.Ui.ViewModels
                 throw new ArgumentException("Der Member-Ausdruck greift nicht auf eine Eigenschaft zu.", "expression");
             }
 
-            if (!property.DeclaringType.IsAssignableFrom(this.GetType()))
+            if (!property.DeclaringType.IsAssignableFrom(GetType()))
             {
-                throw new ArgumentException("Die referenzierte Eigenschaft gehört nicht zum gewünschten Typ.", "expression");
+                throw new ArgumentException("Die referenzierte Eigenschaft gehört nicht zum gewünschten Typ.",
+                    "expression");
             }
 
             var getMethod = property.GetGetMethod(true);
@@ -124,5 +96,36 @@ namespace AutoReservation.Ui.ViewModels
 
         #endregion
 
+        #region INotifyPropertyChanged Members
+
+        public event PropertyChangedEventHandler PropertyChanged { add { propertyChangedEvent += value; } remove { propertyChangedEvent -= value; } }
+
+        #endregion
+
+        #region INotifyPropertyChanging Members
+
+        public event PropertyChangingEventHandler PropertyChanging { add { propertyChangingEvent += value; } remove { propertyChangingEvent -= value; } }
+
+        #endregion
+
+        protected void SendPropertyChanged<T>(Expression<Func<T>> expression)
+        {
+            var propertyName = ExtractPropertyName(expression);
+            if (propertyChangedEvent != null)
+            {
+                propertyChangedEvent(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        protected void SendPropertyChanging<T>(Expression<Func<T>> expression)
+        {
+            var propertyName = ExtractPropertyName(expression);
+            if (propertyChangingEvent != null)
+            {
+                propertyChangingEvent(this, new PropertyChangingEventArgs(propertyName));
+            }
+        }
+
+        protected abstract void Load();
     }
 }

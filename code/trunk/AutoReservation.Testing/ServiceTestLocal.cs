@@ -1,14 +1,18 @@
-﻿using AutoReservation.Common.Interfaces;
+﻿#region
+
+using AutoReservation.Common.Interfaces;
 using AutoReservation.Service.Wcf;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#endregion
 
 namespace AutoReservation.Testing
 {
     [TestClass]
     public class ServiceTestLocal : ServiceTestBase
     {
-
         private IAutoReservationService target;
+
         protected override IAutoReservationService Target
         {
             get
@@ -20,6 +24,5 @@ namespace AutoReservation.Testing
                 return target;
             }
         }
-
     }
 }

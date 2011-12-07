@@ -1,31 +1,40 @@
-﻿using System.ComponentModel;
+﻿#region
+
+using System;
+using System.ComponentModel;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Serialization;
-using System;
+
+#endregion
 
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
     public abstract class DtoBase : INotifyPropertyChanged, INotifyPropertyChanging, ICloneable
     {
-        public abstract string Validate();
+        private PropertyChangedEventHandler propertyChangedEvent;
+        private PropertyChangingEventHandler propertyChangingEvent;
+
+        #region ICloneable Members
+
         public abstract object Clone();
 
-        private PropertyChangingEventHandler propertyChangingEvent;
-        private PropertyChangedEventHandler propertyChangedEvent;
+        #endregion
 
-        public event PropertyChangingEventHandler PropertyChanging
-        {
-            add { propertyChangingEvent += value; }
-            remove { propertyChangingEvent -= value; }
-        }
+        #region INotifyPropertyChanged Members
 
-        public event PropertyChangedEventHandler PropertyChanged
-        {
-            add { propertyChangedEvent += value; }
-            remove { propertyChangedEvent -= value; }
-        }
+        public event PropertyChangedEventHandler PropertyChanged { add { propertyChangedEvent += value; } remove { propertyChangedEvent -= value; } }
+
+        #endregion
+
+        #region INotifyPropertyChanging Members
+
+        public event PropertyChangingEventHandler PropertyChanging { add { propertyChangingEvent += value; } remove { propertyChangingEvent -= value; } }
+
+        #endregion
+
+        public abstract string Validate();
 
         protected void SendPropertyChanged<T>(Expression<Func<T>> expression)
         {
@@ -35,6 +44,7 @@ namespace AutoReservation.Common.DataTransferObjects
                 propertyChangedEvent(this, new PropertyChangedEventArgs(propertyName));
             }
         }
+
         protected void SendPropertyChanging<T>(Expression<Func<T>> expression)
         {
             var propertyName = ExtractPropertyName(expression);
@@ -54,7 +64,8 @@ namespace AutoReservation.Common.DataTransferObjects
             var memberExpression = expression.Body as MemberExpression;
             if (memberExpression == null)
             {
-                throw new ArgumentException("Der Ausdruck ist kein Member-Lamda-Ausdruck (MemberExpression).", "expression");
+                throw new ArgumentException("Der Ausdruck ist kein Member-Lamda-Ausdruck (MemberExpression).",
+                    "expression");
             }
 
             var property = memberExpression.Member as PropertyInfo;
@@ -63,9 +74,10 @@ namespace AutoReservation.Common.DataTransferObjects
                 throw new ArgumentException("Der Member-Ausdruck greift nicht auf eine Eigenschaft zu.", "expression");
             }
 
-            if (!property.DeclaringType.IsAssignableFrom(this.GetType()))
+            if (!property.DeclaringType.IsAssignableFrom(GetType()))
             {
-                throw new ArgumentException("Die referenzierte Eigenschaft gehört nicht zum gewünschten Typ.", "expression");
+                throw new ArgumentException("Die referenzierte Eigenschaft gehört nicht zum gewünschten Typ.",
+                    "expression");
             }
 
             var getMethod = property.GetGetMethod(true);
@@ -81,6 +93,5 @@ namespace AutoReservation.Common.DataTransferObjects
 
             return memberExpression.Member.Name;
         }
-
     }
 }

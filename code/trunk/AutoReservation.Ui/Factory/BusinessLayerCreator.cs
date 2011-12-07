@@ -1,5 +1,9 @@
-﻿using AutoReservation.Common.Interfaces;
+﻿#region
+
+using AutoReservation.Common.Interfaces;
 using AutoReservation.Service.Wcf;
+
+#endregion
 
 namespace AutoReservation.Ui.Factory
 {

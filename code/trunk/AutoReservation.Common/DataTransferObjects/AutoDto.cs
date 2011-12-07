@@ -1,19 +1,27 @@
-﻿using System.Runtime.Serialization;
+﻿#region
+
+using System.Runtime.Serialization;
 using System.Text;
+
+#endregion
 
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
     public class AutoDto : DtoBase
     {
+        private AutoKlasse autoKlasse;
+        private int basistarif;
         private int id;
+
+        private string marke;
+
+        private int tagestarif;
+
         [DataMember]
         public int Id
         {
-            get
-            {
-                return id;
-            }
+            get { return id; }
             set
             {
                 if (id != value)
@@ -25,14 +33,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private string marke;
         [DataMember]
         public string Marke
         {
-            get
-            {
-                return marke;
-            }
+            get { return marke; }
             set
             {
                 if (marke != value)
@@ -44,14 +48,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private int tagestarif;
         [DataMember]
         public int Tagestarif
         {
-            get
-            {
-                return tagestarif;
-            }
+            get { return tagestarif; }
             set
             {
                 if (tagestarif != value)
@@ -63,14 +63,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private int basistarif;
         [DataMember]
         public int Basistarif
         {
-            get
-            {
-                return basistarif;
-            }
+            get { return basistarif; }
             set
             {
                 if (basistarif != value)
@@ -82,14 +78,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private AutoKlasse autoKlasse;
         [DataMember]
         public AutoKlasse AutoKlasse
         {
-            get
-            {
-                return autoKlasse;
-            }
+            get { return autoKlasse; }
             set
             {
                 if (autoKlasse != value)
@@ -103,7 +95,7 @@ namespace AutoReservation.Common.DataTransferObjects
 
         public override string Validate()
         {
-            StringBuilder error = new StringBuilder();
+            var error = new StringBuilder();
             if (string.IsNullOrEmpty(marke))
             {
                 error.AppendLine("- Marke ist nicht gesetzt.");
@@ -117,7 +109,10 @@ namespace AutoReservation.Common.DataTransferObjects
                 error.AppendLine("- Basistarif eines Luxusautos muss grösser als 0 sein.");
             }
 
-            if (error.Length == 0) { return null; }
+            if (error.Length == 0)
+            {
+                return null;
+            }
 
             return error.ToString();
         }
@@ -125,36 +120,20 @@ namespace AutoReservation.Common.DataTransferObjects
         public override object Clone()
         {
             return new AutoDto
-            {
-                Id = Id,
-                Marke = Marke,
-                Tagestarif = Tagestarif,
-                AutoKlasse = AutoKlasse,
-                Basistarif = Basistarif
-            };
-        }
-        
-        public override string ToString()
-        {
-            return string.Format(
-                "{0}; {1}; {2}; {3}; {4}",
-                Id,
-                Marke,
-                Tagestarif,
-                Basistarif,
-                AutoKlasse);
+                   {Id = Id, Marke = Marke, Tagestarif = Tagestarif, AutoKlasse = AutoKlasse, Basistarif = Basistarif};
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0}; {1}; {2}; {3}; {4}", Id, Marke, Tagestarif, Basistarif, AutoKlasse);
+        }
     }
 
     [DataContract]
     public enum AutoKlasse
     {
-        [EnumMember]
-        Luxusklasse = 0,
-        [EnumMember]
-        Mittelklasse = 1,
-        [EnumMember]
-        Standard = 2
+        [EnumMember] Luxusklasse = 0,
+        [EnumMember] Mittelklasse = 1,
+        [EnumMember] Standard = 2
     }
 }

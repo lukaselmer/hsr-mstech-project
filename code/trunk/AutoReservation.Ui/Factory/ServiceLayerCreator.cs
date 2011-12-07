@@ -1,5 +1,9 @@
-﻿using System.ServiceModel;
+﻿#region
+
+using System.ServiceModel;
 using AutoReservation.Common.Interfaces;
+
+#endregion
 
 namespace AutoReservation.Ui.Factory
 {
@@ -7,7 +11,7 @@ namespace AutoReservation.Ui.Factory
     {
         public override IAutoReservationService CreateBusinessLayerInstance()
         {
-            ChannelFactory<IAutoReservationService> channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
+            var channelFactory = new ChannelFactory<IAutoReservationService>("AutoReservationService");
             return channelFactory.CreateChannel();
         }
     }

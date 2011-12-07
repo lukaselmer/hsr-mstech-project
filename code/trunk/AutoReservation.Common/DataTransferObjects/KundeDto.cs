@@ -1,20 +1,27 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Runtime.Serialization;
 using System.Text;
+
+#endregion
 
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
     public class KundeDto : DtoBase
     {
+        private DateTime geburtsdatum;
         private int id;
+
+        private string nachname;
+
+        private string vorname;
+
         [DataMember]
         public int Id
         {
-            get
-            {
-                return id;
-            }
+            get { return id; }
             set
             {
                 if (id != value)
@@ -26,14 +33,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private string nachname;
         [DataMember]
         public string Nachname
         {
-            get
-            {
-                return nachname;
-            }
+            get { return nachname; }
             set
             {
                 if (nachname != value)
@@ -45,14 +48,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private string vorname;
         [DataMember]
         public string Vorname
         {
-            get
-            {
-                return vorname;
-            }
+            get { return vorname; }
             set
             {
                 if (vorname != value)
@@ -64,14 +63,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private DateTime geburtsdatum;
         [DataMember]
         public DateTime Geburtsdatum
         {
-            get
-            {
-                return geburtsdatum;
-            }
+            get { return geburtsdatum; }
             set
             {
                 if (geburtsdatum != value)
@@ -85,7 +80,7 @@ namespace AutoReservation.Common.DataTransferObjects
 
         public override string Validate()
         {
-            StringBuilder error = new StringBuilder();
+            var error = new StringBuilder();
             if (string.IsNullOrEmpty(Nachname))
             {
                 error.AppendLine("- Nachname ist nicht gesetzt.");
@@ -99,31 +94,22 @@ namespace AutoReservation.Common.DataTransferObjects
                 error.AppendLine("- Geburtsdatum ist nicht gesetzt.");
             }
 
-            if (error.Length == 0) { return null; }
+            if (error.Length == 0)
+            {
+                return null;
+            }
 
             return error.ToString();
         }
 
         public override object Clone()
         {
-            return new KundeDto
-            {
-                Id = Id,
-                Nachname = Nachname,
-                Vorname = Vorname,
-                Geburtsdatum = Geburtsdatum
-            };
+            return new KundeDto {Id = Id, Nachname = Nachname, Vorname = Vorname, Geburtsdatum = Geburtsdatum};
         }
 
         public override string ToString()
         {
-            return string.Format(
-                "{0}; {1}; {2}; {3}",
-                Id,
-                Nachname,
-                Vorname,
-                Geburtsdatum);
+            return string.Format("{0}; {1}; {2}; {3}", Id, Nachname, Vorname, Geburtsdatum);
         }
-
     }
 }

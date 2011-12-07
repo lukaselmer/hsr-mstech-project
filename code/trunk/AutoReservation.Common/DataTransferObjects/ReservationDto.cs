@@ -1,20 +1,27 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Runtime.Serialization;
 using System.Text;
+
+#endregion
 
 namespace AutoReservation.Common.DataTransferObjects
 {
     [DataContract]
     public class ReservationDto : DtoBase
     {
+        private AutoDto auto;
+        private DateTime bis;
+        private KundeDto kunde;
         private int reservationNr;
+
+        private DateTime von;
+
         [DataMember]
         public int ReservationNr
         {
-            get
-            {
-                return reservationNr;
-            }
+            get { return reservationNr; }
             set
             {
                 if (reservationNr != value)
@@ -26,14 +33,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private DateTime von;
         [DataMember]
         public DateTime Von
         {
-            get
-            {
-                return von;
-            }
+            get { return von; }
             set
             {
                 if (von != value)
@@ -45,14 +48,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private DateTime bis;
         [DataMember]
         public DateTime Bis
         {
-            get
-            {
-                return bis;
-            }
+            get { return bis; }
             set
             {
                 if (bis != value)
@@ -64,14 +63,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private AutoDto auto;
         [DataMember]
         public AutoDto Auto
         {
-            get
-            {
-                return auto;
-            }
+            get { return auto; }
             set
             {
                 if (auto != value)
@@ -83,14 +78,10 @@ namespace AutoReservation.Common.DataTransferObjects
             }
         }
 
-        private KundeDto kunde;
         [DataMember]
         public KundeDto Kunde
         {
-            get
-            {
-                return kunde;
-            }
+            get { return kunde; }
             set
             {
                 if (kunde != value)
@@ -104,7 +95,7 @@ namespace AutoReservation.Common.DataTransferObjects
 
         public override string Validate()
         {
-            StringBuilder error = new StringBuilder();
+            var error = new StringBuilder();
             if (Von == DateTime.MinValue)
             {
                 error.AppendLine("- Von-Datum ist nicht gesetzt.");
@@ -123,7 +114,7 @@ namespace AutoReservation.Common.DataTransferObjects
             }
             else
             {
-                string autoError = Auto.Validate();
+                var autoError = Auto.Validate();
                 if (!string.IsNullOrEmpty(autoError))
                 {
                     error.AppendLine(autoError);
@@ -135,15 +126,17 @@ namespace AutoReservation.Common.DataTransferObjects
             }
             else
             {
-                string kundeError = Kunde.Validate();
+                var kundeError = Kunde.Validate();
                 if (!string.IsNullOrEmpty(kundeError))
                 {
                     error.AppendLine(kundeError);
                 }
             }
 
-
-            if (error.Length == 0) { return null; }
+            if (error.Length == 0)
+            {
+                return null;
+            }
 
             return error.ToString();
         }
@@ -151,25 +144,15 @@ namespace AutoReservation.Common.DataTransferObjects
         public override object Clone()
         {
             return new ReservationDto
-            {
-                ReservationNr = ReservationNr,
-                Von = Von,
-                Bis = Bis,
-                Auto = (AutoDto)Auto.Clone(),
-                Kunde = (KundeDto)Kunde.Clone()
-            };
+                   {
+                       ReservationNr = ReservationNr, Von = Von, Bis = Bis, Auto = (AutoDto) Auto.Clone(),
+                       Kunde = (KundeDto) Kunde.Clone()
+                   };
         }
 
         public override string ToString()
         {
-            return string.Format(
-                "{0}; {1}; {2}; {3}; {4}",
-                ReservationNr,
-                Von,
-                Bis,
-                Auto,
-                Kunde);
+            return string.Format("{0}; {1}; {2}; {3}; {4}", ReservationNr, Von, Bis, Auto, Kunde);
         }
-
     }
 }

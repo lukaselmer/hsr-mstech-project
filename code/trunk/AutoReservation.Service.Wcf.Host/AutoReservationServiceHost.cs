@@ -1,4 +1,8 @@
-﻿using System.ServiceModel;
+﻿#region
+
+using System.ServiceModel;
+
+#endregion
 
 namespace AutoReservation.Service.Wcf.Host
 {
@@ -9,7 +13,7 @@ namespace AutoReservation.Service.Wcf.Host
         internal static void StartService()
         {
             //Instantiate new ServiceHost 
-            myServiceHost = new ServiceHost(typeof(AutoReservationService));
+            myServiceHost = new ServiceHost(typeof (AutoReservationService));
 
             //Open myServiceHost
             myServiceHost.Open();
@@ -18,8 +22,7 @@ namespace AutoReservation.Service.Wcf.Host
         internal static void StopService()
         {
             //Call StopService from your shutdown logic (i.e. dispose method)
-            if (myServiceHost.State != CommunicationState.Closed)
-                myServiceHost.Close();
+            if (myServiceHost.State != CommunicationState.Closed) myServiceHost.Close();
         }
     }
 }

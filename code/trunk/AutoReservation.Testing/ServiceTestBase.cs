@@ -1,11 +1,14 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using AutoReservation.Common.DataTransferObjects;
 using AutoReservation.Common.Exceptions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AutoReservation.Common.Interfaces;
-using AutoReservation.BusinessLayer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+#endregion
 
 namespace AutoReservation.Testing
 {
@@ -49,17 +52,12 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            AutoDto auto = new AutoDto
-            {
-                Marke = "Opel Astra",
-                AutoKlasse = AutoKlasse.Standard,
-                Tagestarif = 45
-            };
+            var auto = new AutoDto {Marke = "Opel Astra", AutoKlasse = AutoKlasse.Standard, Tagestarif = 45};
 
-            int autoId = Target.InsertAuto(auto);
+            var autoId = Target.InsertAuto(auto);
             Assert.AreNotEqual(0, autoId);
 
-            AutoDto actual = Target.GetAutoById(autoId);
+            var actual = Target.GetAutoById(autoId);
 
             Assert.IsNotNull(actual);
             Assert.AreEqual(autoId, actual.Id);
@@ -74,17 +72,12 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            KundeDto kunde = new KundeDto
-            {
-                Nachname = "Jewo",
-                Vorname = "Sara",
-                Geburtsdatum = new DateTime(1961, 6, 21)
-            };
+            var kunde = new KundeDto {Nachname = "Jewo", Vorname = "Sara", Geburtsdatum = new DateTime(1961, 6, 21)};
 
-            int kundeId = Target.InsertKunde(kunde);
+            var kundeId = Target.InsertKunde(kunde);
             Assert.AreNotEqual(0, kundeId);
 
-            KundeDto actual = Target.GetKundeById(kundeId);
+            var actual = Target.GetKundeById(kundeId);
 
             Assert.IsNotNull(actual);
             Assert.AreEqual(kundeId, actual.Id);
@@ -101,8 +94,8 @@ namespace AutoReservation.Testing
             var reservationen = Target.Reservationen;
             Assert.AreNotEqual(reservationen.Count, 0);
 
-            ReservationDto expected = reservationen[0];
-            ReservationDto actual = Target.GetReservationByNr(expected.ReservationNr);
+            var expected = reservationen[0];
+            var actual = Target.GetReservationByNr(expected.ReservationNr);
 
             Assert.AreEqual(expected.ReservationNr, actual.ReservationNr);
         }
@@ -112,7 +105,7 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            ReservationDto actual = Target.GetReservationByNr(-1);
+            var actual = Target.GetReservationByNr(-1);
 
             Assert.IsNull(actual);
         }
@@ -122,17 +115,12 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            AutoDto auto = new AutoDto
-            {
-                Marke = "Seat Ibiza",
-                AutoKlasse = AutoKlasse.Standard,
-                Tagestarif = 40
-            };
+            var auto = new AutoDto {Marke = "Seat Ibiza", AutoKlasse = AutoKlasse.Standard, Tagestarif = 40};
 
-            int autoId = Target.InsertAuto(auto);
+            var autoId = Target.InsertAuto(auto);
             Assert.AreNotEqual(0, autoId);
 
-            AutoDto result = Target.GetAutoById(autoId);
+            var result = Target.GetAutoById(autoId);
             Assert.AreEqual(autoId, result.Id);
             Assert.AreEqual(auto.Marke, result.Marke);
             Assert.AreEqual(auto.AutoKlasse, result.AutoKlasse);
@@ -145,17 +133,12 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            KundeDto kunde = new KundeDto
-            {
-                Nachname = "Kolade",
-                Vorname = "Joe",
-                Geburtsdatum = new DateTime(1911, 1, 27)
-            };
+            var kunde = new KundeDto {Nachname = "Kolade", Vorname = "Joe", Geburtsdatum = new DateTime(1911, 1, 27)};
 
-            int kundeId = Target.InsertKunde(kunde);
+            var kundeId = Target.InsertKunde(kunde);
             Assert.AreNotEqual(0, kundeId);
 
-            KundeDto result = Target.GetKundeById(kundeId);
+            var result = Target.GetKundeById(kundeId);
             Assert.AreEqual(kundeId, result.Id);
             Assert.AreEqual(kunde.Nachname, result.Nachname);
             Assert.AreEqual(kunde.Vorname, result.Vorname);
@@ -167,18 +150,16 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            ReservationDto reservation = new ReservationDto
-            {
-                Auto = Target.Autos[0],
-                Kunde = Target.Kunden[0],
-                Von = DateTime.Today,
-                Bis = DateTime.Today.AddDays(10)
-            };
+            var reservation = new ReservationDto
+                              {
+                                  Auto = Target.Autos[0], Kunde = Target.Kunden[0], Von = DateTime.Today,
+                                  Bis = DateTime.Today.AddDays(10)
+                              };
 
-            int reservationNr = Target.InsertReservation(reservation);
+            var reservationNr = Target.InsertReservation(reservation);
             Assert.AreNotEqual(0, reservationNr);
 
-            ReservationDto result = Target.GetReservationByNr(reservationNr);
+            var result = Target.GetReservationByNr(reservationNr);
             Assert.AreEqual(reservationNr, result.ReservationNr);
             Assert.AreEqual(reservation.Auto.Id, result.Auto.Id);
             Assert.AreEqual(reservation.Kunde.Id, result.Kunde.Id);
@@ -191,24 +172,19 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            AutoDto auto = new AutoDto
-            {
-                Marke = "Renault Clio",
-                AutoKlasse = AutoKlasse.Standard,
-                Tagestarif = 65
-            };
+            var auto = new AutoDto {Marke = "Renault Clio", AutoKlasse = AutoKlasse.Standard, Tagestarif = 65};
 
-            int autoId = Target.InsertAuto(auto);
+            var autoId = Target.InsertAuto(auto);
             Assert.AreNotEqual(0, autoId);
 
-            AutoDto org = Target.GetAutoById(autoId);
-            AutoDto mod = Target.GetAutoById(autoId);
+            var org = Target.GetAutoById(autoId);
+            var mod = Target.GetAutoById(autoId);
 
             mod.Marke = "Fiat 500";
 
             Target.UpdateAuto(mod, org);
 
-            AutoDto result = Target.GetAutoById(autoId);
+            var result = Target.GetAutoById(autoId);
             Assert.AreEqual(mod.Id, result.Id);
             Assert.AreEqual(mod.Marke, result.Marke);
             Assert.AreEqual(mod.AutoKlasse, result.AutoKlasse);
@@ -221,25 +197,20 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            KundeDto kunde = new KundeDto
-            {
-                Nachname = "Wand",
-                Vorname = "Andi",
-                Geburtsdatum = new DateTime(1955, 4, 12)
-            };
+            var kunde = new KundeDto {Nachname = "Wand", Vorname = "Andi", Geburtsdatum = new DateTime(1955, 4, 12)};
 
-            int kundeId = Target.InsertKunde(kunde);
+            var kundeId = Target.InsertKunde(kunde);
             Assert.AreNotEqual(0, kundeId);
 
-            KundeDto org = Target.GetKundeById(kundeId);
-            KundeDto mod = Target.GetKundeById(kundeId);
+            var org = Target.GetKundeById(kundeId);
+            var mod = Target.GetKundeById(kundeId);
 
             mod.Nachname = "Stein";
             mod.Vorname = "Sean";
 
             Target.UpdateKunde(mod, org);
 
-            KundeDto result = Target.GetKundeById(kundeId);
+            var result = Target.GetKundeById(kundeId);
             Assert.AreEqual(mod.Id, result.Id);
             Assert.AreEqual(mod.Nachname, result.Nachname);
             Assert.AreEqual(mod.Vorname, result.Vorname);
@@ -251,26 +222,24 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            ReservationDto reservation = new ReservationDto
-            {
-                Auto = Target.Autos[0],
-                Kunde = Target.Kunden[0],
-                Von = DateTime.Today,
-                Bis = DateTime.Today.AddDays(10)
-            };
+            var reservation = new ReservationDto
+                              {
+                                  Auto = Target.Autos[0], Kunde = Target.Kunden[0], Von = DateTime.Today,
+                                  Bis = DateTime.Today.AddDays(10)
+                              };
 
-            int reservationNr = Target.InsertReservation(reservation);
+            var reservationNr = Target.InsertReservation(reservation);
             Assert.AreNotEqual(0, reservationNr);
 
-            ReservationDto org = Target.GetReservationByNr(reservationNr);
-            ReservationDto mod = Target.GetReservationByNr(reservationNr);
+            var org = Target.GetReservationByNr(reservationNr);
+            var mod = Target.GetReservationByNr(reservationNr);
 
             mod.Von = DateTime.Today.AddYears(1);
             mod.Bis = DateTime.Today.AddDays(10).AddYears(1);
 
             Target.UpdateReservation(mod, org);
 
-            ReservationDto result = Target.GetReservationByNr(reservationNr);
+            var result = Target.GetReservationByNr(reservationNr);
             Assert.AreEqual(mod.ReservationNr, result.ReservationNr);
             Assert.AreEqual(mod.Auto.Id, result.Auto.Id);
             Assert.AreEqual(mod.Kunde.Id, result.Kunde.Id);
@@ -278,20 +247,20 @@ namespace AutoReservation.Testing
             Assert.AreEqual(mod.Bis, result.Bis);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FaultException<OptimisticConcurrencyException<AutoDto>>))]
+        [TestMethod, ExpectedException(typeof (FaultException<OptimisticConcurrencyException<AutoDto>>))]
+        
         public void UpdateAutoTestWithOptimisticConcurrency()
         {
             TestEnvironmentHelper.InitializeTestData();
 
             // Client 1
-            AutoDto originalAuto1 = Target.Autos[0];
-            AutoDto modifiedAuto1 = (AutoDto)originalAuto1.Clone();
+            var originalAuto1 = Target.Autos[0];
+            var modifiedAuto1 = (AutoDto) originalAuto1.Clone();
             modifiedAuto1.Marke = "Citroen Saxo";
 
             // Client 2
-            AutoDto originalAuto2 = Target.Autos[0];
-            AutoDto modifiedAuto2 = (AutoDto)originalAuto2.Clone();
+            var originalAuto2 = Target.Autos[0];
+            var modifiedAuto2 = (AutoDto) originalAuto2.Clone();
             modifiedAuto2.Marke = "Peugot 106";
 
             //Client 1 Update
@@ -301,20 +270,20 @@ namespace AutoReservation.Testing
             Target.UpdateAuto(modifiedAuto2, originalAuto2);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FaultException<OptimisticConcurrencyException<KundeDto>>))]
+        [TestMethod, ExpectedException(typeof (FaultException<OptimisticConcurrencyException<KundeDto>>))]
+        
         public void UpdateKundeTestWithOptimisticConcurrency()
         {
             TestEnvironmentHelper.InitializeTestData();
 
             // Client 1
-            KundeDto originalKunde1 = Target.Kunden[0];
-            KundeDto modifiedKunde1 = (KundeDto)originalKunde1.Clone();
+            var originalKunde1 = Target.Kunden[0];
+            var modifiedKunde1 = (KundeDto) originalKunde1.Clone();
             modifiedKunde1.Nachname = "Hardegger";
 
             // Client 2
-            KundeDto originalKunde2 = Target.Kunden[0];
-            KundeDto modifiedKunde2 = (KundeDto)originalKunde2.Clone();
+            var originalKunde2 = Target.Kunden[0];
+            var modifiedKunde2 = (KundeDto) originalKunde2.Clone();
             modifiedKunde2.Nachname = "Schmid";
 
             //Client 1 Update
@@ -324,21 +293,21 @@ namespace AutoReservation.Testing
             Target.UpdateKunde(modifiedKunde2, originalKunde2);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(FaultException<OptimisticConcurrencyException<ReservationDto>>))]
+        [TestMethod, ExpectedException(typeof (FaultException<OptimisticConcurrencyException<ReservationDto>>))]
+        
         public void UpdateReservationTestWithOptimisticConcurrency()
         {
             TestEnvironmentHelper.InitializeTestData();
 
             // Client 1
             var res = Target.Reservationen;
-            ReservationDto originalReservation1 = Target.Reservationen[0];
-            ReservationDto modifiedReservation1 = (ReservationDto)originalReservation1.Clone();
+            var originalReservation1 = Target.Reservationen[0];
+            var modifiedReservation1 = (ReservationDto) originalReservation1.Clone();
             modifiedReservation1.Bis = DateTime.Today.AddSeconds(10);
 
             // Client 2
-            ReservationDto originalReservation2 = Target.Reservationen[0];
-            ReservationDto modifiedReservation2 = (ReservationDto)originalReservation2.Clone();
+            var originalReservation2 = Target.Reservationen[0];
+            var modifiedReservation2 = (ReservationDto) originalReservation2.Clone();
             modifiedReservation2.Bis = DateTime.Today.AddSeconds(20);
 
             //Client 1 Update
@@ -353,10 +322,10 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            KundeDto actual = Target.Kunden[0];
+            var actual = Target.Kunden[0];
             Target.DeleteKunde(actual);
 
-            KundeDto result = Target.GetKundeById(actual.Id);
+            var result = Target.GetKundeById(actual.Id);
 
             Assert.IsNull(result);
         }
@@ -366,10 +335,10 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            AutoDto actual = Target.Autos[0];
+            var actual = Target.Autos[0];
             Target.DeleteAuto(actual);
 
-            AutoDto result = Target.GetAutoById(actual.Id);
+            var result = Target.GetAutoById(actual.Id);
 
             Assert.IsNull(result);
         }
@@ -379,10 +348,10 @@ namespace AutoReservation.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
-            ReservationDto actual = Target.Reservationen[0];
+            var actual = Target.Reservationen[0];
             Target.DeleteReservation(actual);
 
-            ReservationDto result = Target.GetReservationByNr(actual.ReservationNr);
+            var result = Target.GetReservationByNr(actual.ReservationNr);
 
             Assert.IsNull(result);
         }

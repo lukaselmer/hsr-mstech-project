@@ -1,12 +1,19 @@
-﻿using System;
-using System.Windows.Data;
+﻿#region
+
+using System;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
+
+#endregion
 
 namespace AutoReservation.Ui.Converters
 {
     public class DetailViewVisibilityConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        #region IValueConverter Members
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value != null)
             {
@@ -15,9 +22,11 @@ namespace AutoReservation.Ui.Converters
             return Visibility.Collapsed;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }
