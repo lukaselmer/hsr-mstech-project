@@ -1,4 +1,6 @@
-﻿using AutoReservation.Testing;
+﻿using System.Windows.Input;
+using AutoReservation.Testing;
+using AutoReservation.Ui.ViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AutoReservation.Ui.Testing
@@ -11,6 +13,14 @@ namespace AutoReservation.Ui.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
+            AutoViewModel target = new AutoViewModel();
+            ICommand targetCommand = target.LoadCommand;
+
+            Assert.IsTrue(targetCommand.CanExecute(null));
+
+            targetCommand.Execute(null);
+
+            Assert.AreEqual(3, target.Autos.Count);
         }
 
         [TestMethod]
@@ -18,6 +28,14 @@ namespace AutoReservation.Ui.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
+            KundeViewModel target = new KundeViewModel();
+            ICommand targetCommand = target.LoadCommand;
+
+            Assert.IsTrue(targetCommand.CanExecute(null));
+
+            targetCommand.Execute(null);
+
+            Assert.AreEqual(4, target.Kunden.Count);
         }
 
         [TestMethod]
@@ -25,6 +43,14 @@ namespace AutoReservation.Ui.Testing
         {
             TestEnvironmentHelper.InitializeTestData();
 
+            ReservationViewModel target = new ReservationViewModel();
+            ICommand targetCommand = target.LoadCommand;
+
+            Assert.IsTrue(targetCommand.CanExecute(null));
+
+            targetCommand.Execute(null);
+
+            Assert.AreEqual(1, target.Reservationen.Count);
         }
     }
 }
