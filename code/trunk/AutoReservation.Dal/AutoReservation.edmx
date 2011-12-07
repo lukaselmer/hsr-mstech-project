@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="AutoReservationModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="AutoReservationModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="AutoReservationModelStoreContainer">
           <EntitySet Name="Auto" EntityType="AutoReservationModel.Store.Auto" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Kunde" EntityType="AutoReservationModel.Store.Kunde" store:Type="Tables" Schema="dbo" />
@@ -78,8 +78,8 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="AutoReservationModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="AutoReservationEntities" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="AutoReservationModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="AutoReservationEntities">
           <EntitySet Name="Autos" EntityType="AutoReservationModel.Auto" />
           <EntitySet Name="Kunden" EntityType="AutoReservationModel.Kunde" />
           <EntitySet Name="Reservationen" EntityType="AutoReservationModel.Reservation" />
@@ -91,43 +91,45 @@
             <End Role="Kunde" EntitySet="Kunden" />
             <End Role="Reservation" EntitySet="Reservationen" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="Auto" Abstract="true">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="Id" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
           <Property Name="Marke" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" ConcurrencyMode="Fixed" />
           <Property Name="Tagestarif" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
-          <NavigationProperty Name="Reservation" Relationship="AutoReservationModel.FK_Reservation_Auto" FromRole="Auto" ToRole="Reservation" />
+          <NavigationProperty Name="Reservations" Relationship="AutoReservationModel.FK_Reservation_Auto" FromRole="Auto" ToRole="Reservation" />
         </EntityType>
         <EntityType Name="Kunde">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
+          <Property Name="Id" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
           <Property Name="Nachname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" ConcurrencyMode="Fixed" />
           <Property Name="Vorname" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" ConcurrencyMode="Fixed" />
           <Property Name="Geburtsdatum" Type="DateTime" Nullable="false" ConcurrencyMode="Fixed" />
-          <NavigationProperty Name="Reservation" Relationship="AutoReservationModel.FK_Reservation_Kunde" FromRole="Kunde" ToRole="Reservation" />
+          <NavigationProperty Name="Reservations" Relationship="AutoReservationModel.FK_Reservation_Kunde" FromRole="Kunde" ToRole="Reservation" />
         </EntityType>
+        <EntityType Name="LuxusklasseAuto" BaseType="AutoReservationModel.Auto">
+          <Property Name="Basistarif" Type="Int32" Nullable="false" ConcurrencyMode="None" /></EntityType>
+        <EntityType Name="MittelklasseAuto" BaseType="AutoReservationModel.Auto" />
+        <EntityType Name="StandardAuto" BaseType="AutoReservationModel.Auto" />
         <EntityType Name="Reservation">
           <Key>
             <PropertyRef Name="ReservationNr" />
           </Key>
-          <Property Name="ReservationNr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" ConcurrencyMode="Fixed" />
-          <Property Name="AutoId" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
-          <Property Name="KundeId" Type="Int32" Nullable="false" ConcurrencyMode="Fixed" />
-          <Property Name="Von" Type="DateTime" Nullable="false" ConcurrencyMode="Fixed" />
-          <Property Name="Bis" Type="DateTime" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Type="Int32" Name="ReservationNr" Nullable="false" a:StoreGeneratedPattern="Identity" xmlns:a="http://schemas.microsoft.com/ado/2009/02/edm/annotation" ConcurrencyMode="Fixed" />
+          <Property Type="Int32" Name="AutoId" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Type="Int32" Name="KundeId" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Type="DateTime" Name="Von" Nullable="false" ConcurrencyMode="Fixed" />
+          <Property Type="DateTime" Name="Bis" Nullable="false" ConcurrencyMode="Fixed" />
           <NavigationProperty Name="Auto" Relationship="AutoReservationModel.FK_Reservation_Auto" FromRole="Reservation" ToRole="Auto" />
           <NavigationProperty Name="Kunde" Relationship="AutoReservationModel.FK_Reservation_Kunde" FromRole="Reservation" ToRole="Kunde" />
         </EntityType>
         <Association Name="FK_Reservation_Auto">
-          <End Role="Auto" Type="AutoReservationModel.Auto" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Reservation" Type="AutoReservationModel.Reservation" Multiplicity="*" />
+          <End Type="AutoReservationModel.Auto" Role="Auto" Multiplicity="1" />
+          <End Type="AutoReservationModel.Reservation" Role="Reservation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Auto">
               <PropertyRef Name="Id" />
@@ -138,10 +140,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reservation_Kunde">
-          <End Role="Kunde" Type="AutoReservationModel.Kunde" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="Reservation" Type="AutoReservationModel.Reservation" Multiplicity="*" />
+          <End Type="AutoReservationModel.Kunde" Role="Kunde" Multiplicity="1" />
+          <End Type="AutoReservationModel.Reservation" Role="Reservation" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Kunde">
               <PropertyRef Name="Id" />
@@ -151,12 +151,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="StandardAuto" BaseType="AutoReservationModel.Auto" />
-        <EntityType Name="MittelklasseAuto" BaseType="AutoReservationModel.Auto" />
-        <EntityType Name="LuxusklasseAuto" BaseType="AutoReservationModel.Auto" >
-          <Property Type="Int32" Name="Basistarif" Nullable="false" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -166,128 +161,95 @@
             <EntityTypeMapping TypeName="IsTypeOf(AutoReservationModel.Auto)">
               <MappingFragment StoreEntitySet="Auto">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Tagestarif" ColumnName="Tagestarif" />
                 <ScalarProperty Name="Marke" ColumnName="Marke" />
+                <ScalarProperty Name="Tagestarif" ColumnName="Tagestarif" />
               </MappingFragment>
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(AutoReservationModel.LuxusklasseAuto)">
               <MappingFragment StoreEntitySet="Auto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Basistarif" ColumnName="Basistarif" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <Condition ColumnName="AutoKlasse" Value="0" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(AutoReservationModel.StandardAuto)">
-              <MappingFragment StoreEntitySet="Auto">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <Condition ColumnName="AutoKlasse" Value="2" />
-              </MappingFragment>
-            </EntityTypeMapping>
+                <Condition ColumnName="AutoKlasse" Value="0" /></MappingFragment></EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(AutoReservationModel.MittelklasseAuto)">
               <MappingFragment StoreEntitySet="Auto">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <Condition ColumnName="AutoKlasse" Value="1" />
+                <Condition ColumnName="AutoKlasse" Value="1" /></MappingFragment></EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(AutoReservationModel.StandardAuto)">
+              <MappingFragment StoreEntitySet="Auto">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <Condition ColumnName="AutoKlasse" Value="2" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Kunden">
+            <EntityTypeMapping TypeName="IsTypeOf(AutoReservationModel.Kunde)">
+              <MappingFragment StoreEntitySet="Kunde">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+                <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+                <ScalarProperty Name="Geburtsdatum" ColumnName="Geburtsdatum" />
               </MappingFragment>
-            </EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Kunden"><EntityTypeMapping TypeName="AutoReservationModel.Kunde"><MappingFragment StoreEntitySet="Kunde">
-            <ScalarProperty Name="Id" ColumnName="Id" />
-            <ScalarProperty Name="Nachname" ColumnName="Nachname" />
-            <ScalarProperty Name="Vorname" ColumnName="Vorname" />
-            <ScalarProperty Name="Geburtsdatum" ColumnName="Geburtsdatum" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="Reservationen"><EntityTypeMapping TypeName="AutoReservationModel.Reservation"><MappingFragment StoreEntitySet="Reservation">
-            <ScalarProperty Name="ReservationNr" ColumnName="Id" />
-            <ScalarProperty Name="AutoId" ColumnName="AutoId" />
-            <ScalarProperty Name="KundeId" ColumnName="KundeId" />
-            <ScalarProperty Name="Von" ColumnName="Von" />
-            <ScalarProperty Name="Bis" ColumnName="Bis" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-        </EntityContainerMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservationen">
+            <EntityTypeMapping TypeName="AutoReservationModel.Reservation">
+              <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="Bis" ColumnName="Bis" />
+                <ScalarProperty Name="Von" ColumnName="Von" />
+                <ScalarProperty Name="KundeId" ColumnName="KundeId" />
+                <ScalarProperty Name="AutoId" ColumnName="AutoId" />
+                <ScalarProperty Name="ReservationNr" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
-    <Connection>
-      <DesignerInfoPropertySet>
+  <edmx:Designer>
+    <edmx:Connection>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
-    </Connection>
-    <Options>
-      <DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
-    </Options>
+    </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams>
-      <Diagram Name="Autoverleih">
-        <EntityTypeShape EntityType="AutoReservationModel.Auto" Width="1.5" PointX="0.75" PointY="15.375" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="AutoReservationModel.Kunde" Width="1.5" PointX="3" PointY="12.25" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="AutoReservationModel.Reservation" Width="1.5" PointX="3" PointY="15" Height="2.3648893229166674" IsExpanded="true" />
-        <AssociationConnector Association="AutoReservationModel.FK_Reservation_Auto" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="16.268992513020834" />
-          <ConnectorPoint PointX="3" PointY="16.268992513020834" />
+    <edmx:Diagrams>
+      <Diagram Name="AutoReservation" ZoomLevel="95" xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+        <EntityTypeShape EntityType="AutoReservationModel.Auto" Width="1.5" PointX="2.625" PointY="3.875" Height="1.7879850260416665" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoReservationModel.Kunde" Width="1.5" PointX="6" PointY="1.125" Height="1.9802864583333339" IsExpanded="true" />
+        <EntityTypeShape EntityType="AutoReservationModel.LuxusklasseAuto" Width="1.75" PointX="0.5" PointY="6.25" Height="1.2110807291666665" />
+        <InheritanceConnector EntityType="AutoReservationModel.LuxusklasseAuto" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.375" PointY="5.6629850260416665" />
+          <ConnectorPoint PointX="3.375" PointY="5.95" />
+          <ConnectorPoint PointX="1.375" PointY="5.95" />
+          <ConnectorPoint PointX="1.375" PointY="6.25" />
+          </InheritanceConnector>
+        <EntityTypeShape EntityType="AutoReservationModel.MittelklasseAuto" Width="1.75" PointX="2.5" PointY="6.25" Height="1.0187792968749996" />
+        <EntityTypeShape EntityType="AutoReservationModel.StandardAuto" Width="1.75" PointX="4.5" PointY="6.25" Height="1.0187792968749996" />
+        <InheritanceConnector EntityType="AutoReservationModel.MittelklasseAuto" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.375" PointY="5.6629850260416665" />
+          <ConnectorPoint PointX="3.375" PointY="6.25" />
+          </InheritanceConnector>
+        <InheritanceConnector EntityType="AutoReservationModel.StandardAuto" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.375" PointY="5.6629850260416665" />
+          <ConnectorPoint PointX="3.375" PointY="5.95" />
+          <ConnectorPoint PointX="5.375" PointY="5.95" />
+          <ConnectorPoint PointX="5.375" PointY="6.25" />
+          </InheritanceConnector>
+        <EntityTypeShape EntityType="AutoReservationModel.Reservation" Width="1.5" PointX="2.75" PointY="1" Height="2.3648893229166674" />
+        <AssociationConnector Association="AutoReservationModel.FK_Reservation_Auto" >
+          <ConnectorPoint PointX="3.4375" PointY="3.875" />
+          <ConnectorPoint PointX="3.4375" PointY="3.3648893229166674" />
         </AssociationConnector>
-        <AssociationConnector Association="AutoReservationModel.FK_Reservation_Kunde" ManuallyRouted="false">
-          <ConnectorPoint PointX="3.75" PointY="14.230286458333332" />
-          <ConnectorPoint PointX="3.75" PointY="15" />
+        <AssociationConnector Association="AutoReservationModel.FK_Reservation_Kunde" >
+          <ConnectorPoint PointX="6" PointY="2.1151432291666667" />
+          <ConnectorPoint PointX="4.25" PointY="2.1151432291666667" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="AutoReservationModel.StandardAuto" Width="1.5" PointX="8" PointY="17.875" Height="1.018779296874996" />
-        <InheritanceConnector EntityType="AutoReservationModel.StandardAuto" ManuallyRouted="false" >
-          <ConnectorPoint PointX="1.5" PointY="17.162985026041667" />
-          <ConnectorPoint PointX="1.5" PointY="17.614889322916667" />
-          <ConnectorPoint PointX="8.75" PointY="17.614889322916667" />
-          <ConnectorPoint PointX="8.75" PointY="17.875" />
-          </InheritanceConnector>
-        <EntityTypeShape EntityType="AutoReservationModel.MittelklasseAuto" Width="1.5" PointX="10.25" PointY="17.875" Height="1.018779296874996" />
-        <InheritanceConnector EntityType="AutoReservationModel.MittelklasseAuto" ManuallyRouted="false" >
-          <ConnectorPoint PointX="1.5" PointY="17.162985026041667" />
-          <ConnectorPoint PointX="1.5" PointY="17.614889322916667" />
-          <ConnectorPoint PointX="11" PointY="17.614889322916667" />
-          <ConnectorPoint PointX="11" PointY="17.875" />
-          </InheritanceConnector>
-        <EntityTypeShape EntityType="AutoReservationModel.LuxusklasseAuto" Width="1.5" PointX="5.75" PointY="17.875" Height="1.2110807291666674" />
-        <InheritanceConnector EntityType="AutoReservationModel.LuxusklasseAuto" ManuallyRouted="false" >
-          <ConnectorPoint PointX="1.5" PointY="17.162985026041667" />
-          <ConnectorPoint PointX="1.5" PointY="17.614889322916667" />
-          <ConnectorPoint PointX="6.5" PointY="17.614889322916667" />
-          <ConnectorPoint PointX="6.5" PointY="17.875" />
-          </InheritanceConnector>
-        <InheritanceConnector EntityType="AutoReservationModel.StandardAuto">
-          <ConnectorPoint PointX="4.25" PointY="14.912985026041667" />
-          <ConnectorPoint PointX="4.25" PointY="15.625" />
-        </InheritanceConnector>
-        <InheritanceConnector EntityType="AutoReservationModel.MittelklasseAuto">
-          <ConnectorPoint PointX="4.25" PointY="14.912985026041667" />
-          <ConnectorPoint PointX="4.25" PointY="15.364889322916667" />
-          <ConnectorPoint PointX="9.5" PointY="15.364889322916667" />
-          <ConnectorPoint PointX="9.5" PointY="15.625" />
-        </InheritanceConnector>
-        <InheritanceConnector EntityType="AutoReservationModel.LuxusklasseAuto">
-          <ConnectorPoint PointX="4.25" PointY="14.912985026041667" />
-          <ConnectorPoint PointX="4.25" PointY="15.25" />
-          <ConnectorPoint PointX="2" PointY="15.25" />
-          <ConnectorPoint PointX="2" PointY="15.625" />
-        </InheritanceConnector>
-        <InheritanceConnector EntityType="AutoReservationModel.LuxusklasseAuto">
-          <ConnectorPoint PointX="4.25" PointY="14.912985026041666" />
-          <ConnectorPoint PointX="4.25" PointY="15.25" />
-          <ConnectorPoint PointX="2" PointY="15.25" />
-          <ConnectorPoint PointX="2" PointY="15.625" />
-        </InheritanceConnector>
-        <InheritanceConnector EntityType="AutoReservationModel.StandardAuto">
-          <ConnectorPoint PointX="4.25" PointY="14.912985026041666" />
-          <ConnectorPoint PointX="4.25" PointY="15.625" />
-        </InheritanceConnector>
-        <InheritanceConnector EntityType="AutoReservationModel.MittelklasseAuto">
-          <ConnectorPoint PointX="4.25" PointY="14.912985026041666" />
-          <ConnectorPoint PointX="4.25" PointY="15.364889322916667" />
-          <ConnectorPoint PointX="9.5" PointY="15.364889322916667" />
-          <ConnectorPoint PointX="9.5" PointY="15.625" />
-        </InheritanceConnector>
-      </Diagram>
-    </Diagrams>
-  </Designer>
+        </Diagram></edmx:Diagrams>
+  </edmx:Designer>
 </edmx:Edmx>
