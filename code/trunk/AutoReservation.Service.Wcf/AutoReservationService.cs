@@ -79,17 +79,17 @@ namespace AutoReservation.Service.Wcf
 
         public void UpdateKunde(KundeDto modified, KundeDto original)
         {
-                            try
-                {
-                    WriteActualMethod();
-                    component.UpdateKunde(modified.ConvertToEntity(), original.ConvertToEntity());
-                }
-                catch (LocalOptimisticConcurrencyException<Kunde> ex)
-                {
-                    var e = new OptimisticConcurrencyException<KundeDto> { Entity = ex.Entity.ConvertToDto() };
+            try
+            {
+                WriteActualMethod();
+                component.UpdateKunde(modified.ConvertToEntity(), original.ConvertToEntity());
+            }
+            catch (LocalOptimisticConcurrencyException<Kunde> ex)
+            {
+                var e = new OptimisticConcurrencyException<KundeDto> { Entity = ex.Entity.ConvertToDto() };
 
-                    throw new FaultException<OptimisticConcurrencyException<KundeDto>>(e);
-                }
+                throw new FaultException<OptimisticConcurrencyException<KundeDto>>(e);
+            }
         }
 
         public void DeleteKunde(KundeDto kunde)
@@ -114,16 +114,17 @@ namespace AutoReservation.Service.Wcf
 
         public void UpdateReservation(ReservationDto modified, ReservationDto original)
         {
-                try {
-                    WriteActualMethod();
-                    component.UpdateReservationen(modified.ConvertToEntity(), original.ConvertToEntity());
-                }
-                catch (LocalOptimisticConcurrencyException<Reservation> ex)
-                {
-                    var e = new OptimisticConcurrencyException<ReservationDto> { Entity = ex.Entity.ConvertToDto() };
+            try
+            {
+                WriteActualMethod();
+                component.UpdateReservation(modified.ConvertToEntity(), original.ConvertToEntity());
+            }
+            catch (LocalOptimisticConcurrencyException<Reservation> ex)
+            {
+                var e = new OptimisticConcurrencyException<ReservationDto> { Entity = ex.Entity.ConvertToDto() };
 
-                    throw new FaultException<OptimisticConcurrencyException<ReservationDto>>(e);
-                }
+                throw new FaultException<OptimisticConcurrencyException<ReservationDto>>(e);
+            }
 
         }
 

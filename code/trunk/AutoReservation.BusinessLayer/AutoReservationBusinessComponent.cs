@@ -174,7 +174,7 @@ namespace AutoReservation.BusinessLayer
             }
         }
 
-        public void UpdateReservationen(Reservation modified, Reservation original)
+        public void UpdateReservation(Reservation modified, Reservation original)
         {
             using (var context = new AutoReservationEntities())
             {

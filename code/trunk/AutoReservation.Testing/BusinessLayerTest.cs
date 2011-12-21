@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Objects.DataClasses;
+using System.Linq;
 using System.Reflection;
 using AutoReservation.BusinessLayer;
 using AutoReservation.Dal;
@@ -83,11 +84,12 @@ namespace AutoReservation.Testing
             TestEnvironmentHelper.InitializeTestData();
             var component = new AutoReservationBusinessComponent();
             var oldReservation = component.GetReservationen()[0];
-            var newReservation = oldReservation.Copy();
+            var newReservation = component.GetReservationen()[0];
+            Assert.AreNotSame(newReservation, oldReservation);
             newReservation.Von = newReservation.Von.AddDays(3);
-            newReservation.Bis = newReservation.Bis.AddDays(3);
+            newReservation.Bis = newReservation.Bis.AddDays(3).AddYears(1);
             Assert.AreNotEqual(newReservation, component.GetReservationen()[0]);
-            component.UpdateReservationen(newReservation, oldReservation);
+            component.UpdateReservation(newReservation, oldReservation);
             Assert.AreEqual(newReservation, component.GetReservationen()[0]);
         }
 
