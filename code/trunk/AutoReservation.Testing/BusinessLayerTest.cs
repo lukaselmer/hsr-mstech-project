@@ -49,6 +49,7 @@ namespace AutoReservation.Testing
             var oldAuto = component.GetAutos()[0];
             var newAuto = (Auto) oldAuto.Copy();
             newAuto.Marke = "Test Marke";
+            Assert.AreNotEqual(newAuto, component.GetAutos()[0]);
             component.UpdateAuto(newAuto, oldAuto);
             Assert.AreEqual(newAuto, component.GetAutos()[0]);
         }
@@ -67,14 +68,27 @@ namespace AutoReservation.Testing
         public void UpdateKundeTest()
         {
             TestEnvironmentHelper.InitializeTestData();
-
+            var component = new AutoReservationBusinessComponent();
+            var oldKunde = component.GetKunden()[0];
+            var newKunde = (Kunde) oldKunde.Copy();
+            newKunde.Vorname = "Peter";
+            Assert.AreNotEqual(newKunde, component.GetKunden()[0]);
+            component.UpdateKunde(newKunde, oldKunde);
+            Assert.AreEqual(newKunde, component.GetKunden()[0]);
         }
 
         [TestMethod]
         public void UpdateReservationTest()
         {
             TestEnvironmentHelper.InitializeTestData();
-
+            var component = new AutoReservationBusinessComponent();
+            var oldReservation = component.GetReservationen()[0];
+            var newReservation = oldReservation.Copy();
+            newReservation.Von = newReservation.Von.AddDays(3);
+            newReservation.Bis = newReservation.Bis.AddDays(3);
+            Assert.AreNotEqual(newReservation, component.GetReservationen()[0]);
+            component.UpdateReservationen(newReservation, oldReservation);
+            Assert.AreEqual(newReservation, component.GetReservationen()[0]);
         }
 
     }

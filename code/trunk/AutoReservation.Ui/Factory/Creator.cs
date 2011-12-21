@@ -13,7 +13,13 @@ namespace AutoReservation.Ui.Factory
         public static Creator GetCreatorInstance()
         {
             Type businessLayerType = Type.GetType(Settings.Default.BusinessLayerType);
-            return (Creator) Activator.CreateInstance(businessLayerType);
+
+            if (businessLayerType == null)
+            {
+                return new LocalDataAccessCreator();
+            }
+
+            return (Creator)Activator.CreateInstance(businessLayerType);
         }
     }
 }

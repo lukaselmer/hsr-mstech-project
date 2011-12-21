@@ -8,6 +8,8 @@ namespace AutoReservation.Common.DataTransferObjects
     public class KundeDto : DtoBase
     {
         private int _id;
+
+        [DataMember]
         public int Id
         {
             get { return _id; }
@@ -20,6 +22,8 @@ namespace AutoReservation.Common.DataTransferObjects
         }
 
         private DateTime _geburtsdatum;
+
+        [DataMember]
         public DateTime Geburtsdatum
         {
             get { return _geburtsdatum; }
@@ -32,6 +36,8 @@ namespace AutoReservation.Common.DataTransferObjects
         }
 
         private string _nachname;
+
+        [DataMember]
         public string Nachname
         {
             get { return _nachname; }
@@ -44,6 +50,8 @@ namespace AutoReservation.Common.DataTransferObjects
         }
 
         private string _vorname;
+
+        [DataMember]
         public string Vorname
         {
             get { return _vorname; }
