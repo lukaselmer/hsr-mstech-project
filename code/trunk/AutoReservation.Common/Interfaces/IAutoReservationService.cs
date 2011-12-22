@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using AutoReservation.Common.DataTransferObjects;
+using AutoReservation.Common.Exceptions;
 
 namespace AutoReservation.Common.Interfaces
 {
@@ -17,7 +18,7 @@ namespace AutoReservation.Common.Interfaces
         AutoDto GetAuto(int id);
         [OperationContract]
         void CreateAuto(AutoDto auto);
-        [OperationContract]
+        [OperationContract, FaultContract(typeof(OptimisticConcurrencyException<AutoDto>))]
         void UpdateAuto(AutoDto modified, AutoDto original);
         [OperationContract]
         void DeleteAuto(AutoDto auto);
@@ -29,7 +30,7 @@ namespace AutoReservation.Common.Interfaces
         KundeDto getKunde(int id);
         [OperationContract]
         void CreateKunde(KundeDto kunde);
-        [OperationContract]
+        [OperationContract, FaultContract(typeof(OptimisticConcurrencyException<KundeDto>))]
         void UpdateKunde(KundeDto modified, KundeDto original);
         [OperationContract]
         void DeleteKunde(KundeDto kunde);
@@ -41,7 +42,7 @@ namespace AutoReservation.Common.Interfaces
         ReservationDto GetReservation(int id);
         [OperationContract]
         void CreateReservation(ReservationDto reservation);
-        [OperationContract]
+        [OperationContract, FaultContract(typeof(OptimisticConcurrencyException<ReservationDto>))]
         void UpdateReservation(ReservationDto modified, ReservationDto original);
         [OperationContract]
         void DeleteReservation(ReservationDto reservation);
